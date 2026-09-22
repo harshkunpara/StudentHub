@@ -1,0 +1,2 @@
+# Keep registration data from being downloaded directly.
+Require all denied
