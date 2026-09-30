@@ -132,7 +132,8 @@
               </p>
               <div class="event-footer">
                 <span class="event-venue"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Central Lab</span>
-                <a href="registar.html" class="btn btn-primary btn-sm">Register</a>
+               <a href="../php/process_event_registration.php?event_id=2"
+   class="btn btn-primary btn-sm">Register</a>
               </div>
             </div>
           </article>
@@ -154,7 +155,8 @@
               </p>
               <div class="event-footer">
                 <span class="event-venue"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Lab 302</span>
-                <a href="registar.html" class="btn btn-primary btn-sm">Register</a>
+                <a href="../php/process_event_registration.php?event_id=4"
+   class="btn btn-primary btn-sm">Register</a>
               </div>
             </div>
           </article>
@@ -176,7 +178,8 @@
               </p>
               <div class="event-footer">
                 <span class="event-venue"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Hall B</span>
-                <a href="registar.html" class="btn btn-primary btn-sm">Register</a>
+              <a href="../php/process_event_registration.php?event_id=3"
+   class="btn btn-primary btn-sm">Register</a>
               </div>
             </div>
           </article>
@@ -198,7 +201,8 @@
               </p>
               <div class="event-footer">
                 <span class="event-venue"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> IT Cluster 1</span>
-                <a href="registar.html" class="btn btn-primary btn-sm">Participate</a>
+                <a href="../php/process_event_registration.php?event_id=5"
+   class="btn btn-primary btn-sm">Participate</a>
               </div>
             </div>
           </article>
@@ -220,7 +224,8 @@
               </p>
               <div class="event-footer">
                 <span class="event-venue"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Main Ground</span>
-                <a href="registar.html" class="btn btn-primary btn-sm">Join</a>
+               <a href="../php/process_event_registration.php?event_id=6"
+   class="btn btn-primary btn-sm">Join</a>
               </div>
             </div>
           </article>
@@ -242,7 +247,8 @@
               </p>
               <div class="event-footer">
                 <span class="event-venue"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Open Auditorium</span>
-                <a href="registar.html" class="btn btn-primary btn-sm">Register</a>
+               <a href="../php/process_event_registration.php?event_id=7"
+   class="btn btn-primary btn-sm">Register</a>
               </div>
             </div>
           </article>
@@ -340,6 +346,118 @@
 
   <!-- Main JavaScript File -->
   <script src="../js/script.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("registered");
+
+    if (status === "success" || status === "already") {
+
+        const isSuccess = status === "success";
+
+        const modal = document.createElement("div");
+
+        modal.innerHTML = `
+            <div id="registrationModal" style="
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.65);
+                backdrop-filter: blur(6px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                padding: 20px;
+            ">
+
+                <div style="
+                    width: 100%;
+                    max-width: 420px;
+                    background: white;
+                    border-radius: 20px;
+                    padding: 35px 30px;
+                    text-align: center;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                    animation: popupIn 0.3s ease;
+                ">
+
+                    <div style="
+                        width: 70px;
+                        height: 70px;
+                        margin: 0 auto 20px;
+                        border-radius: 50%;
+                        background: ${isSuccess ? "#dcfce7" : "#dbeafe"};
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 36px;
+                    ">
+                        ${isSuccess ? "✓" : "ℹ"}
+                    </div>
+
+                    <h2 style="
+                        margin: 0 0 12px;
+                        color: #111827;
+                        font-size: 25px;
+                    ">
+                        ${isSuccess ? "Registration Successful!" : "Already Registered"}
+                    </h2>
+
+                    <p style="
+                        margin: 0 0 25px;
+                        color: #6b7280;
+                        font-size: 15px;
+                        line-height: 1.6;
+                    ">
+                        ${
+                            isSuccess
+                            ? "You have successfully registered for this event."
+                            : "You are already registered for this event."
+                        }
+                    </p>
+
+                    <button onclick="goToDashboard()" style="
+                        width: 100%;
+                        border: none;
+                        border-radius: 10px;
+                        padding: 13px 20px;
+                        background: #111827;
+                        color: white;
+                        font-size: 15px;
+                        font-weight: 600;
+                        cursor: pointer;
+                    ">
+                        Go to Dashboard →
+                    </button>
+
+                </div>
+            </div>
+
+            <style>
+                @keyframes popupIn {
+                    from {
+                        opacity: 0;
+                        transform: scale(0.85);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+            </style>
+        `;
+
+        document.body.appendChild(modal);
+
+        window.goToDashboard = function () {
+            window.location.href = "dashboard.html";
+        };
+
+        // Automatically go to dashboard after 5 seconds
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 5000);
+    }
+</script>
 </body>
 
 </html>

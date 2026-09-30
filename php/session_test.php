@@ -1,0 +1,15 @@
+<?php
+session_start();
+
+echo "<h2>StudentHub Session Test</h2>";
+
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
+
+if (isset($_SESSION['student_id'])) {
+    echo "<h3 style='color:green'>SESSION WORKING</h3>";
+} else {
+    echo "<h3 style='color:red'>NO STUDENT SESSION</h3>";
+}
+?>
