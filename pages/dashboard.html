@@ -1,388 +1,1171 @@
 <!DOCTYPE html>
+
 <html lang="en" data-theme="light">
 
+
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+
+
   <title>Student Dashboard — StudentHub</title>
+
   <meta name="description" content="Personalized student academic dashboard for tracking attendance, semester CGPA, enrolled courses, and upcoming campus events.">
 
+
+
   <!-- Favicon -->
+
   <link rel="icon" href="../image/favicon.ico" type="image/x-icon">
 
+
+
   <!-- Google Fonts: Plus Jakarta Sans & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https\://fonts.googleapis.com">
+
+  <link rel="preconnect" href="https\://fonts.gstatic.com" crossorigin>
+
+  <link href="https\://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght\@400;500;600;700;800&family=Inter:wght\@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <link rel="stylesheet" href="https\://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+
 
   <!-- Main Stylesheet -->
+
   <link rel="stylesheet" href="../css/style.css">
+
 </head>
+
+
 
 <body>
 
+
+
   <!--================ HEADER / NAVBAR =================-->
+
   <header class="site-header" id="topHeader">
+
     <div class="container nav-container">
-      
+
+
+
       <!-- Brand Logo -->
+
       <a href="index.html" class="brand-logo" aria-label="StudentHub Home">
+
         <div class="logo-icon">
+
           <img src="../image/StudentHub LOGO.png" alt="StudentHub Logo" class="brand-img-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+
           <i class="fa-solid fa-graduation-cap" aria-hidden="true" style="display: none;"></i>
+
         </div>
+
         <span class="logo-text">Student<span>Hub</span></span>
+
       </a>
 
+
+
       <!-- Navigation Links -->
+
       <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
+
         <ul class="nav-list">
+
           <li><a href="index.html" class="nav-link">Home</a></li>
+
           <li><a href="about.html" class="nav-link">About</a></li>
+
           <li><a href="events.html" class="nav-link">Events</a></li>
+
           <li><a href="dashboard.html" class="nav-link active" aria-current="page">Dashboard</a></li>
+
           <li><a href="profile.html" class="nav-link">Profile</a></li>
+
           <li><a href="faq.html" class="nav-link">FAQ</a></li>
+
           <li><a href="contact.html" class="nav-link">Contact</a></li>
+
           <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+
           <li><a href="admin.html" class="nav-link">Admin</a></li>
+
         </ul>
+
       </nav>
 
+
+
       <!-- Action Group -->
+
       <div class="nav-actions">
+
         <!-- Theme Toggle -->
+
         <button id="themeToggleBtn" class="theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle Theme">
+
           <i class="fa-solid fa-moon dark-icon" aria-hidden="true"></i>
+
           <i class="fa-solid fa-sun light-icon" aria-hidden="true"></i>
+
         </button>
+
+
 
     <a href="../php/logout.php" class="btn btn-outline btn-sm">Logout</a>
 
+
+
         <!-- Mobile Hamburger Toggle -->
+
         <button id="hamburgerBtn" class="hamburger-btn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation menu">
+
           <span class="bar"></span>
+
           <span class="bar"></span>
+
           <span class="bar"></span>
+
         </button>
+
       </div>
 
+
+
     </div>
+
   </header>
+
+
 
   <main id="mainContent">
 
+
+
     <!--================ DASHBOARD BANNER / WELCOME =================-->
+
     <section class="dashboard-banner-section" aria-labelledby="welcomeHeading">
+
       <div class="container">
-        
+
+
+
         <div class="welcome-card">
+
           <div class="welcome-user-info">
+
             <div class="user-avatar-badge">
+
               <i class="fa-solid fa-user-graduate" aria-hidden="true"></i>
+
             </div>
+
             <div>
+
               <span class="badge-pill">Academic Year 2026</span>
-              <h1 id="welcomeHeading" class="welcome-title">Welcome back, Harsh!</h1>
+
+              <h1 id="welcomeHeading" class="welcome-title">Welcome back, <span id="studentName">Student</span>!</h1>
+
               <p class="welcome-subtext">
-                Department of Information Technology • Semester 3 • Enrollment ID: <strong>24IT001</strong>
+
+                Department of <span id="studentDepartment">Loading...</span> • <span id="studentSemester">Loading...</span> • Enrollment ID: <strong id="studentEnrollment">Loading...</strong>
+
               </p>
+
             </div>
+
           </div>
+
+
 
           <div class="welcome-metrics">
+
             <div class="metric-pill">
+
               <span class="metric-label">Attendance</span>
-              <span class="metric-val text-success">92%</span>
+
+              <span id="attendanceTop" class="metric-val text-success">N/A</span>
+
             </div>
+
             <div class="metric-pill">
+
               <span class="metric-label">Current CGPA</span>
-              <span class="metric-val text-primary">8.50</span>
+
+              <span id="cgpaTop" class="metric-val text-primary">N/A</span>
+
             </div>
+
           </div>
+
         </div>
 
+
+
       </div>
+
     </section>
 
+
+
     <!--================ MAIN DASHBOARD METRICS & WIDGETS =================-->
+
     <section class="dashboard-grid-section" aria-labelledby="dashboardOverviewTitle">
+
       <div class="container">
-        
+
+
+
         <h2 id="dashboardOverviewTitle" class="sr-only">Student Academic Overview</h2>
+
+
 
         <div class="dashboard-widget-grid">
 
+
+
           <!-- Widget 1: Academic Performance -->
+
           <div class="dashboard-card stat-summary-card">
+
             <div class="card-header-clean">
+
               <div class="header-icon-box icon-purple">
+
                 <i class="fa-solid fa-square-poll-vertical" aria-hidden="true"></i>
+
               </div>
+
               <div>
+
                 <h3>Academic Performance</h3>
+
                 <span class="card-sub">Semester 2 Evaluation</span>
+
               </div>
+
             </div>
+
             <div class="card-metric-display">
+
               <div class="metric-number-wrap">
-                <span class="metric-huge">8.50</span>
+
+                <span id="cgpaValue" class="metric-huge">N/A</span>
+
                 <span class="metric-rating-tag status-active">Excellent</span>
+
               </div>
-              <p class="metric-note">Ranked in top 5% of Information Technology department.</p>
+
+              <p id="cgpaNote" class="metric-note">Academic performance data is not stored in the current database.</p>
+
             </div>
+
           </div>
+
+
 
           <!-- Widget 2: Attendance Monitor -->
+
           <div class="dashboard-card stat-summary-card">
+
             <div class="card-header-clean">
+
               <div class="header-icon-box icon-emerald">
+
                 <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+
               </div>
+
               <div>
+
                 <h3>Overall Attendance</h3>
+
                 <span class="card-sub">Required Threshold: 75%</span>
+
               </div>
+
             </div>
+
             <div class="card-metric-display">
+
               <div class="metric-number-wrap">
-                <span class="metric-huge text-success">92%</span>
+
+                <span id="attendanceValue" class="metric-huge text-success">N/A</span>
+
                 <span class="metric-rating-tag status-active">Regular</span>
+
               </div>
+
               <div class="progress-bar-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Attendance 92%">
+
                 <div class="progress-bar-fill" style="width: 92%;"></div>
+
               </div>
+
             </div>
+
           </div>
+
+
 
           <!-- Widget 3: Active Subjects -->
+
           <div class="dashboard-card">
+
             <div class="card-header-clean">
+
               <div class="header-icon-box icon-blue">
+
                 <i class="fa-solid fa-book" aria-hidden="true"></i>
+
               </div>
+
               <div>
+
                 <h3>Enrolled Courses</h3>
-                <span class="card-sub">4 Core Modules</span>
+
+                <span id="courseCount" class="card-sub">Loading courses...</span>
+
               </div>
+
             </div>
-            <ul class="widget-item-list">
-              <li class="widget-list-row">
-                <span class="item-title">Java Programming</span>
-                <span class="item-code">IT301</span>
-              </li>
-              <li class="widget-list-row">
-                <span class="item-title">Data Structures & Algorithms</span>
-                <span class="item-code">IT302</span>
-              </li>
-              <li class="widget-list-row">
-                <span class="item-title">Full-Stack Web Development</span>
-                <span class="item-code">IT303</span>
-              </li>
-              <li class="widget-list-row">
-                <span class="item-title">Database Management Systems</span>
-                <span class="item-code">IT304</span>
-              </li>
-            </ul>
+
+            <ul id="coursesList" class="widget-item-list">
+  <li class="widget-list-row"><span class="item-title">Loading courses...</span><span class="item-code">...</span></li>
+</ul>
+
           </div>
+
+
 
           <!-- Widget 4: Latest Notices -->
+
           <div class="dashboard-card">
+
             <div class="card-header-clean">
+
               <div class="header-icon-box icon-amber">
+
                 <i class="fa-solid fa-bell" aria-hidden="true"></i>
+
               </div>
+
               <div>
+
                 <h3>Recent Circulars</h3>
+
                 <span class="card-sub">Verified Alerts</span>
+
               </div>
+
             </div>
+
             <ul class="widget-item-list">
+
               <li class="widget-list-row">
+
                 <div class="notice-bullet priority-dot"></div>
+
                 <div class="notice-row-body">
+
                   <span class="item-title">Lab Submission on Friday</span>
+
                   <span class="item-meta">DBMS Lab 204 • 05:00 PM</span>
+
                 </div>
+
               </li>
+
               <li class="widget-list-row">
+
                 <div class="notice-bullet"></div>
+
                 <div class="notice-row-body">
+
                   <span class="item-title">DSA Assignment Due</span>
+
                   <span class="item-meta">Submit to Faculty Portal</span>
+
                 </div>
+
               </li>
+
               <li class="widget-list-row">
+
                 <div class="notice-bullet"></div>
+
                 <div class="notice-row-body">
+
                   <span class="item-title">Internal Mid-Sem Schedule</span>
+
                   <span class="item-meta">Starts Next Month</span>
+
                 </div>
+
               </li>
+
             </ul>
+
           </div>
+
+
 
           <!-- Widget 5: Upcoming Events -->
+
           <div class="dashboard-card">
+
             <div class="card-header-clean">
+
               <div class="header-icon-box icon-cyan">
+
                 <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+
               </div>
+
               <div>
+
                 <h3>Upcoming Events</h3>
-                <span class="card-sub">RSVP Confirmed</span>
+
+                <span id="eventCount" class="card-sub">Loading events...</span>
+
               </div>
+
             </div>
-            <ul class="widget-item-list">
-              <li class="widget-list-row">
-                <span class="event-cal-tag">AUG 22</span>
-                <div class="notice-row-body">
-                  <span class="item-title">Campus Hackathon 2026</span>
-                  <span class="item-meta">Central Auditorium</span>
-                </div>
-              </li>
-              <li class="widget-list-row">
-                <span class="event-cal-tag">AUG 15</span>
-                <div class="notice-row-body">
-                  <span class="item-title">Web Development Workshop</span>
-                  <span class="item-meta">Lab 302</span>
-                </div>
-              </li>
-              <li class="widget-list-row">
-                <span class="event-cal-tag">AUG 30</span>
-                <div class="notice-row-body">
-                  <span class="item-title">Applied AI Seminar</span>
-                  <span class="item-meta">Seminar Hall B</span>
-                </div>
-              </li>
-            </ul>
+
+            <ul id="eventsList" class="widget-item-list">
+  <li class="widget-list-row">
+    <span class="event-cal-tag">...</span>
+    <div class="notice-row-body"><span class="item-title">Loading events...</span><span class="item-meta">...</span></div>
+  </li>
+</ul>
+
           </div>
 
+
+
           <!-- Widget 6: Quick Action Cards -->
+
           <div class="dashboard-card action-hub-card">
+
             <div class="card-header-clean">
+
               <div class="header-icon-box icon-rose">
+
                 <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+
               </div>
+
               <div>
+
                 <h3>Student Utilities</h3>
+
                 <span class="card-sub">Quick Operations</span>
+
               </div>
+
             </div>
+
             <div class="dashboard-action-buttons">
+
               <a href="profile.html" class="btn btn-outline btn-block text-left">
+
                 <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
+
                 <span>Edit Profile</span>
+
               </a>
+
               <a href="events.html" class="btn btn-outline btn-block text-left">
+
                 <i class="fa-solid fa-calendar-plus" aria-hidden="true"></i>
+
                 <span>Register for Events</span>
+
               </a>
+
               <a href="dashboard.html" class="btn btn-outline btn-block text-left">
+
                 <i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i>
+
                 <span>View Assignments</span>
+
               </a>
+
             </div>
+
           </div>
+
+
 
         </div>
 
+
+
       </div>
+
     </section>
+
+
 
   </main>
 
+
+
   <!--================ SITE FOOTER =================-->
+
   <footer class="site-footer" role="contentinfo">
+
     <div class="container">
+
       <div class="footer-grid">
-        
+
+
+
         <!-- Column 1: Brand -->
+
         <div class="footer-col brand-col">
+
           <a href="index.html" class="brand-logo footer-logo">
+
             <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+
             <span class="logo-text">Student<span>Hub</span></span>
+
           </a>
+
           <p class="footer-bio">
+
             Your unified digital campus portal engineered to simplify academic coordination, announcements, and student participation.
+
           </p>
+
           <div class="social-links" aria-label="Social media links">
+
             <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+
             <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+
             <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+
             <a href="#" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+
           </div>
+
         </div>
+
+
 
         <!-- Column 2: Quick Links -->
+
         <div class="footer-col">
+
           <h3 class="footer-heading">Quick Links</h3>
+
           <ul class="footer-links">
+
             <li><a href="index.html">Home</a></li>
+
             <li><a href="about.html">About Portal</a></li>
+
             <li><a href="events.html">Campus Events</a></li>
+
             <li><a href="dashboard.html">Student Dashboard</a></li>
+
             <li><a href="faq.html">Help & FAQ</a></li>
+
           </ul>
+
         </div>
+
+
 
         <!-- Column 3: Portals & Access -->
+
         <div class="footer-col">
+
           <h3 class="footer-heading">Student Portal</h3>
+
           <ul class="footer-links">
+
             <li><a href="login.html">Student Login</a></li>
+
             <li><a href="registar.html">New Registration</a></li>
+
             <li><a href="profile.html">Academic Profile</a></li>
+
             <li><a href="feedback.html">Submit Feedback</a></li>
+
             <li><a href="admin.html">Admin Console</a></li>
+
           </ul>
+
         </div>
+
+
 
         <!-- Column 4: Contact -->
+
         <div class="footer-col">
+
           <h3 class="footer-heading">Campus Contact</h3>
+
           <ul class="footer-contact-list">
+
             <li>
+
               <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+
               <span>CHARUSAT Campus, Changa, Anand, Gujarat — 388421</span>
+
             </li>
+
             <li>
+
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-              <a href="mailto:studenthub@gmail.com">studenthub@gmail.com</a>
+
+              <a href="mailto:studenthub\@gmail.com">studenthub\@gmail.com</a>
+
             </li>
+
             <li>
+
               <i class="fa-solid fa-phone" aria-hidden="true"></i>
+
               <a href="tel:+919876543210">+91 98765 43210</a>
+
             </li>
+
             <li>
+
               <i class="fa-solid fa-clock" aria-hidden="true"></i>
+
               <span>Mon - Sat: 9:00 AM - 5:00 PM</span>
+
             </li>
+
           </ul>
+
         </div>
 
+
+
       </div>
+
+
 
       <div class="footer-bottom">
+
         <p class="copyright-text">
+
           &copy; 2026 StudentHub. All Rights Reserved.
+
         </p>
+
         <div class="footer-legal">
+
           <a href="faq.html">Privacy Policy</a>
+
           <span>•</span>
+
           <a href="faq.html">Terms of Service</a>
+
         </div>
+
       </div>
+
     </div>
+
   </footer>
 
-  <!-- Main JavaScript File -->
-  <script src="../js/script.js"></script>
+<!-- Academic Details Popup -->
+<div id="academicModal" class="academic-modal">
+
+    <div class="academic-box">
+
+        <h2>Complete Your Academic Details</h2>
+
+        <p>
+            Please enter your current academic details to complete your dashboard.
+        </p>
+
+        <form id="academicForm">
+
+            <label for="attendanceInput">
+                Attendance (%)
+            </label>
+
+            <input
+                type="number"
+                id="attendanceInput"
+                name="attendance"
+                min="0"
+                max="100"
+                step="0.01"
+                placeholder="Example: 92"
+                required
+            >
+
+            <label for="cgpaInput">
+                Current CGPA
+            </label>
+
+            <input
+                type="number"
+                id="cgpaInput"
+                name="cgpa"
+                min="0"
+                max="10"
+                step="0.01"
+                placeholder="Example: 8.50"
+                required
+            >
+
+            <p id="academicError" class="academic-error"></p>
+
+            <button type="submit">
+                Save & Continue
+            </button>
+
+        </form>
+
+    </div>
+
+
+<!-- Main JavaScript File -->
+
+<script>
+
+async function loadDashboardData() {
+
+    try {
+
+        const response = await fetch("../php/dashboard.php", {
+            method: "GET",
+            credentials: "same-origin",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+
+        if (response.status === 401) {
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+
+        const data = await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load dashboard data."
+            );
+
+        }
+
+
+        // ==========================================
+        // STUDENT DATA
+        // ==========================================
+
+        const student = data.student;
+
+
+        document.getElementById("studentName").textContent =
+            student.name || "Student";
+
+
+        document.getElementById("studentDepartment").textContent =
+            student.department || "N/A";
+
+
+        document.getElementById("studentSemester").textContent =
+            student.semester || "N/A";
+
+
+        document.getElementById("studentEnrollment").textContent =
+            student.enrollment_number || "N/A";
+
+
+        // ==========================================
+        // ATTENDANCE + CGPA
+        // ==========================================
+
+        const attendance = student.attendance;
+        const cgpa = student.cgpa;
+
+
+        if (
+            attendance === null ||
+            attendance === "" ||
+            attendance === undefined ||
+            cgpa === null ||
+            cgpa === "" ||
+            cgpa === undefined
+        ) {
+
+            // Academic details missing
+            document
+                .getElementById("academicModal")
+                .classList.add("show");
+
+        } else {
+
+            // Attendance
+
+            document.getElementById("attendanceTop").textContent =
+                attendance + "%";
+
+
+            document.getElementById("attendanceValue").textContent =
+                attendance + "%";
+
+
+            // CGPA
+
+            document.getElementById("cgpaTop").textContent =
+                parseFloat(cgpa).toFixed(2);
+
+
+            document.getElementById("cgpaValue").textContent =
+                parseFloat(cgpa).toFixed(2);
+
+
+            // Attendance progress bar
+
+            const progressBar =
+                document.querySelector(".progress-bar-fill");
+
+
+            if (progressBar) {
+
+                progressBar.style.width =
+                    Math.min(parseFloat(attendance), 100) + "%";
+
+            }
+
+        }
+
+
+        // ==========================================
+        // COURSES
+        // ==========================================
+
+        const courses = data.courses || [];
+
+
+        document.getElementById("courseCount").textContent =
+            `${courses.length} Courses in Database`;
+
+
+        const coursesList =
+            document.getElementById("coursesList");
+
+
+        coursesList.innerHTML = "";
+
+
+        if (courses.length === 0) {
+
+            coursesList.innerHTML = `
+                <li class="widget-list-row">
+                    <span class="item-title">
+                        No courses found
+                    </span>
+
+                    <span class="item-code">
+                        —
+                    </span>
+                </li>
+            `;
+
+        } else {
+
+            courses.forEach(course => {
+
+                const li =
+                    document.createElement("li");
+
+
+                li.className =
+                    "widget-list-row";
+
+
+                li.innerHTML = `
+                    <span class="item-title"></span>
+                    <span class="item-code"></span>
+                `;
+
+
+                li.querySelector(".item-title")
+                    .textContent =
+                    course.course_name;
+
+
+                li.querySelector(".item-code")
+                    .textContent =
+                    `COURSE-${course.course_id}`;
+
+
+                coursesList.appendChild(li);
+
+            });
+
+        }
+
+
+        // ==========================================
+        // REGISTERED EVENTS
+        // ==========================================
+
+        const events =
+            data.registered_events || [];
+
+
+        document.getElementById("eventCount").textContent =
+            `${events.length} Registered Event${events.length === 1 ? "" : "s"}`;
+
+
+        const eventsList =
+            document.getElementById("eventsList");
+
+
+        eventsList.innerHTML = "";
+
+
+        if (events.length === 0) {
+
+            eventsList.innerHTML = `
+                <li class="widget-list-row">
+
+                    <span class="event-cal-tag">
+                        —
+                    </span>
+
+                    <div class="notice-row-body">
+
+                        <span class="item-title">
+                            No registered events
+                        </span>
+
+                        <span class="item-meta">
+                            Register from Campus Events
+                        </span>
+
+                    </div>
+
+                </li>
+            `;
+
+        } else {
+
+            events.forEach(event => {
+
+                const date =
+                    new Date(event.event_date);
+
+
+                const dateText =
+                    isNaN(date.getTime())
+                        ? "—"
+                        : date.toLocaleDateString(
+                            "en-US",
+                            {
+                                month: "short",
+                                day: "2-digit"
+                            }
+                        ).toUpperCase();
+
+
+                const li =
+                    document.createElement("li");
+
+
+                li.className =
+                    "widget-list-row";
+
+
+                li.innerHTML = `
+                    <span class="event-cal-tag"></span>
+
+                    <div class="notice-row-body">
+
+                        <span class="item-title"></span>
+
+                        <span class="item-meta"></span>
+
+                    </div>
+                `;
+
+
+                li.querySelector(".event-cal-tag")
+                    .textContent =
+                    dateText;
+
+
+                li.querySelector(".item-title")
+                    .textContent =
+                    event.title ||
+                    "Untitled Event";
+
+
+                li.querySelector(".item-meta")
+                    .textContent =
+                    event.location ||
+                    "Location not specified";
+
+
+                eventsList.appendChild(li);
+
+            });
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard Error:",
+            error
+        );
+
+        alert(
+            "Unable to load dashboard data. Please login again."
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// PAGE LOAD
+// ==========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        // Load dashboard data
+        loadDashboardData();
+
+
+        // ==========================================
+        // ACADEMIC FORM
+        // ==========================================
+
+        const academicForm =
+            document.getElementById("academicForm");
+
+
+        if (!academicForm) {
+            return;
+        }
+
+
+        academicForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const formData =
+                    new FormData(this);
+
+
+                const errorBox =
+                    document.getElementById(
+                        "academicError"
+                    );
+
+
+                errorBox.textContent = "";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "../php/save_dashboard_details.php",
+                            {
+                                method: "POST",
+                                body: formData,
+                                credentials: "same-origin"
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!data.success) {
+
+                        errorBox.textContent =
+                            data.message ||
+                            "Unable to save details.";
+
+                        return;
+
+                    }
+
+
+                    // Close popup
+
+                    document
+                        .getElementById("academicModal")
+                        .classList.remove("show");
+
+
+                    // Reload dashboard data
+
+                    await loadDashboardData();
+
+                } catch (error) {
+
+                    console.error(
+                        "Save Error:",
+                        error
+                    );
+
+
+                    errorBox.textContent =
+                        "Something went wrong. Please try again.";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+<script src="../js/script.js"></script>
+
 </body>
+
+
 
 </html>

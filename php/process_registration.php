@@ -17,55 +17,239 @@ $confirmPassword = $_POST["confirm_password"] ?? "";
 
 $errors = [];
 
-if ($name === "") $errors[] = "Full name is required.";
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Enter a valid email address.";
-if ($mobile === "" || !preg_match('/^[0-9+ ()-]{10,20}$/', $mobile)) $errors[] = "Enter a valid phone number.";
-if ($enrollment === "") $errors[] = "Enrollment number is required.";
-if ($department === "") $errors[] = "Department is required.";
-if (!preg_match('/^Semester [1-8]$/', $semesterText)) $errors[] = "Select a valid semester.";
-if (strlen($password) < 8) $errors[] = "Password must contain at least 8 characters.";
-if ($password !== $confirmPassword) $errors[] = "Passwords do not match.";
+
+/* =========================
+   NAME VALIDATION
+   ========================= */
+
+if ($name === "") {
+
+    $errors[] = "Full name is required.";
+
+} elseif (!preg_match('/^[A-Za-z ]{2,50}$/', $name)) {
+
+    $errors[] = "Name must contain only letters and spaces.";
+
+}
+
+
+/* =========================
+   EMAIL VALIDATION
+   ========================= */
+
+if ($email === "") {
+
+    $errors[] = "Email is required.";
+
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+    $errors[] = "Enter a valid email address.";
+
+}
+
+
+/* =========================
+   MOBILE VALIDATION
+   ========================= */
+
+if ($mobile === "") {
+
+    $errors[] = "Mobile number is required.";
+
+} elseif (!preg_match('/^[0-9]{10}$/', $mobile)) {
+
+    $errors[] = "Mobile number must contain exactly 10 digits.";
+
+}
+
+
+/* =========================
+   ENROLLMENT VALIDATION
+   ========================= */
+
+if ($enrollment === "") {
+
+    $errors[] = "Enrollment number is required.";
+
+} elseif (!preg_match('/^[0-9]{2}IT[0-9]{3}$/i', $enrollment)) {
+
+    $errors[] = "Enter a valid enrollment number. Example: 25IT048.";
+
+}
+
+
+/* =========================
+   DEPARTMENT VALIDATION
+   ========================= */
+
+if ($department === "") {
+
+    $errors[] = "Department is required.";
+
+}
+
+
+/* =========================
+   SEMESTER VALIDATION
+   ========================= */
+
+if (!preg_match('/^Semester [1-8]$/', $semesterText)) {
+
+    $errors[] = "Select a valid semester.";
+
+}
 
 $semester = (int) str_replace("Semester ", "", $semesterText);
 
+
+/* =========================
+   PASSWORD VALIDATION
+   ========================= */
+
+if ($password === "") {
+
+    $errors[] = "Password is required.";
+
+} elseif (strlen($password) < 8) {
+
+    $errors[] = "Password must contain at least 8 characters.";
+
+} elseif (!preg_match('/[A-Z]/', $password)) {
+
+    $errors[] = "Password must contain at least one uppercase letter.";
+
+} elseif (!preg_match('/[a-z]/', $password)) {
+
+    $errors[] = "Password must contain at least one lowercase letter.";
+
+} elseif (!preg_match('/[0-9]/', $password)) {
+
+    $errors[] = "Password must contain at least one number.";
+
+} elseif (!preg_match('/[^A-Za-z0-9]/', $password)) {
+
+    $errors[] = "Password must contain at least one special character.";
+
+}
+
+
+/* =========================
+   CONFIRM PASSWORD
+   ========================= */
+
+if ($password !== $confirmPassword) {
+
+    $errors[] = "Passwords do not match.";
+
+}
+
+
+/* =========================
+   CHECK DEPARTMENT IN DB
+   ========================= */
+
 if (!$errors) {
-    $courseStmt = $pdo->prepare("SELECT course_id FROM courses WHERE course_name = :course_name");
-    $courseStmt->execute([":course_name" => $department]);
+
+    $courseStmt = $pdo->prepare(
+        "SELECT course_id
+         FROM courses
+         WHERE course_name = :course_name"
+    );
+
+    $courseStmt->execute([
+        ":course_name" => $department
+    ]);
+
     $courseId = $courseStmt->fetchColumn();
 
     if (!$courseId) {
+
         $errors[] = "Selected department is not available in the database.";
+
     }
 }
+
+
+/* =========================
+   CHECK DUPLICATE EMAIL
+   OR ENROLLMENT
+   ========================= */
 
 if (!$errors) {
-    $check = $pdo->prepare("SELECT id FROM students WHERE email = :email OR enrollment_number = :enrollment LIMIT 1");
-    $check->execute([":email" => $email, ":enrollment" => $enrollment]);
+
+    $check = $pdo->prepare(
+        "SELECT id
+         FROM students
+         WHERE email = :email
+            OR enrollment_number = :enrollment
+         LIMIT 1"
+    );
+
+    $check->execute([
+        ":email" => $email,
+        ":enrollment" => $enrollment
+    ]);
 
     if ($check->fetch()) {
+
         $errors[] = "Email or enrollment number is already registered.";
+
     }
 }
 
+
+/* =========================
+   SHOW ERRORS
+   ========================= */
+
 if ($errors) {
-    http_response_code(400);
-    echo "<!doctype html><html><head><meta charset='UTF-8'><title>Registration Error</title></head><body>";
-    echo "<h2>Registration could not be completed</h2><ul>";
-    foreach ($errors as $error) {
-        echo "<li>" . htmlspecialchars($error) . "</li>";
-    }
-    echo "</ul><a href='../pages/registar.html'>Go back to registration</a></body></html>";
+
+    header(
+        "Location: ../pages/registar.html?errors=" .
+        rawurlencode(json_encode($errors))
+    );
+
     exit;
 }
 
-$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+/* =========================
+   PASSWORD HASH
+   ========================= */
+
+$passwordHash = password_hash(
+    $password,
+    PASSWORD_DEFAULT
+);
+
+
+/* =========================
+   INSERT STUDENT
+   ========================= */
 
 $sql = "INSERT INTO students
-        (name, email, mobile, enrollment_number, course_id, semester, password_hash)
+        (
+            name,
+            email,
+            mobile,
+            enrollment_number,
+            course_id,
+            semester,
+            password_hash
+        )
         VALUES
-        (:name, :email, :mobile, :enrollment_number, :course_id, :semester, :password_hash)";
+        (
+            :name,
+            :email,
+            :mobile,
+            :enrollment_number,
+            :course_id,
+            :semester,
+            :password_hash
+        )";
 
 $stmt = $pdo->prepare($sql);
+
 $stmt->execute([
     ":name" => $name,
     ":email" => $email,
@@ -76,6 +260,12 @@ $stmt->execute([
     ":password_hash" => $passwordHash
 ]);
 
+
+/* =========================
+   SUCCESS
+   ========================= */
+
 header("Location: registration_success.php");
 exit;
+
 ?>

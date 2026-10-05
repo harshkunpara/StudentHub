@@ -1402,7 +1402,99 @@ ul, ol {
   flex-direction: column;
   gap: 0.65rem;
 }
+/* --------------------------------------------------
+   16A. ACADEMIC DETAILS POPUP
+-------------------------------------------------- */
 
+.academic-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 99999;
+}
+
+.academic-modal.show {
+  display: flex;
+}
+
+.academic-box {
+  width: 90%;
+  max-width: 450px;
+
+  background: var(--bg-surface);
+
+  border: 1px solid var(--border-subtle);
+
+  border-radius: var(--radius-xl);
+
+  padding: 2rem;
+
+  box-shadow: var(--shadow-lg);
+}
+
+.academic-box h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.academic-box > p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.academic-box label {
+  display: block;
+
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+
+  font-weight: 600;
+}
+
+.academic-box input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 0.75rem;
+
+  border: 1px solid var(--border-subtle);
+
+  border-radius: var(--radius-md);
+
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.academic-box button {
+  width: 100%;
+
+  margin-top: 1.5rem;
+
+  padding: 0.8rem;
+
+  border: none;
+
+  border-radius: var(--radius-md);
+
+  background: var(--primary);
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.academic-error {
+  color: var(--accent-rose) !important;
+}
 /* --------------------------------------------------
    17. ADMIN PORTAL & DATA TABLES
 -------------------------------------------------- */

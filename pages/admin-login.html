@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login — StudentHub</title>
+
+    <link rel="icon"
+        href="../image/favicon.ico"
+        type="image/x-icon">
+
+    <link rel="stylesheet"
+        href="../css/style.css">
+
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color, #f5f7fb);
+        }
+
+        .admin-login-wrapper {
+            width: 100%;
+            max-width: 430px;
+            padding: 20px;
+        }
+
+        .admin-login-card {
+            background: var(--card-bg, #ffffff);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+        }
+
+        .admin-login-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111827;
+            color: white;
+            font-size: 30px;
+        }
+
+        .admin-login-card h1 {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .admin-login-card .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.7;
+        }
+
+        .admin-form-group {
+            margin-bottom: 20px;
+        }
+
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .admin-form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .admin-form-group input:focus {
+            border-color: #111827;
+        }
+
+        .admin-login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #111827;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .admin-login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .admin-error {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #fee2e2;
+            color: #991b1b;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="admin-login-wrapper">
+
+        <div class="admin-login-card">
+
+            <div class="admin-login-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <h1>Admin Access</h1>
+
+            <p class="subtitle">
+                Enter administrator credentials to continue.
+            </p>
+
+            <div id="errorMessage"
+                class="admin-error">
+            </div>
+
+            <form id="adminLoginForm">
+
+                <div class="admin-form-group">
+
+                    <label for="username">
+                        Admin Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter admin username"
+                        required
+                        autocomplete="username">
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="password">
+                        Admin Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter admin password"
+                        required
+                        autocomplete="current-password">
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="admin-login-btn">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    &nbsp; Login as Admin
+
+                </button>
+
+            </form>
+
+
+            <a href="index.html"
+                class="back-home">
+
+                ← Back to Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const form =
+            document.getElementById("adminLoginForm");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+        form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            errorMessage.style.display = "none";
+
+
+            const formData =
+                new FormData(form);
+
+
+            try {
+
+                const response =
+                    await fetch("../php/admin_login.php", {
+
+                        method: "POST",
+
+                        body: formData
+
+                    });
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    window.location.href =
+                        "admin.html";
+
+                } else {
+
+                    errorMessage.textContent =
+                        data.message || "Invalid credentials.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                }
+
+            } catch (error) {
+
+                errorMessage.textContent =
+                    "Unable to connect to server.";
+
+                errorMessage.style.display =
+                    "block";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

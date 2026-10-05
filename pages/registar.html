@@ -321,6 +321,72 @@
 
   <!-- Main JavaScript File -->
   <script src="../js/script.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const errorData = params.get("errors");
+
+    if (errorData) {
+        try {
+            const errors = JSON.parse(decodeURIComponent(errorData));
+
+            const errorBox = document.createElement("div");
+
+            errorBox.style.cssText = `
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                color: #b91c1c;
+                border-radius: 12px;
+                padding: 16px 18px;
+                margin: 0 auto 20px auto;
+                max-width: 900px;
+                font-family: Arial, sans-serif;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            `;
+
+            errorBox.innerHTML = `
+                <div style="
+                    font-weight: 700;
+                    font-size: 16px;
+                    margin-bottom: 8px;
+                ">
+                    ⚠️ Registration could not be completed
+                </div>
+
+                <ul style="
+                    margin: 0;
+                    padding-left: 20px;
+                    line-height: 1.7;
+                ">
+                    ${errors.map(error => `
+                        <li>${escapeHtml(error)}</li>
+                    `).join("")}
+                </ul>
+            `;
+
+            const form = document.querySelector("form");
+
+            if (form) {
+                form.parentNode.insertBefore(errorBox, form);
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement("div");
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+        } catch (error) {
+            console.error("Unable to display registration errors:", error);
+        }
+
+        // URL se error hata do
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+    }
+</script>
 </body>
 
 </html>
