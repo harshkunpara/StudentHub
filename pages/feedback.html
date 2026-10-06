@@ -93,7 +93,7 @@
         <div class="form-wrapper-center">
           <div class="form-card feedback-form-card">
             
-            <form class="styled-form" action="#" method="POST" onsubmit="return false;">
+   <form id="feedbackForm" class="styled-form">
               
               <div class="form-group">
                 <label for="feedbackName" class="form-label">Full Name <span class="required-star">*</span></label>
@@ -263,7 +263,86 @@
       </div>
     </div>
   </footer>
+<script>
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const stars = document.querySelectorAll(".star-rating-btn");
+    const ratingInput = document.getElementById("ratingValueInput");
+
+    stars.forEach(function (star) {
+
+        star.addEventListener("click", function () {
+
+            const rating = parseInt(this.dataset.value);
+
+            ratingInput.value = rating;
+
+            stars.forEach(function (item) {
+                item.classList.remove("active");
+            });
+
+            stars.forEach(function (item) {
+
+                if (parseInt(item.dataset.value) <= rating) {
+                    item.classList.add("active");
+                }
+
+            });
+
+        });
+
+    });
+
+
+    const form = document.getElementById("feedbackForm");
+
+    if (!form) {
+        return;
+    }
+
+
+    form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        try {
+
+            const response = await fetch(
+                "../php/submit_feedback.php",
+                {
+                    method: "POST",
+                    body: formData,
+                    credentials: "same-origin"
+                }
+            );
+
+            const data = await response.json();
+
+            if (!data.success) {
+
+                alert(data.message || "Unable to submit feedback.");
+
+                return;
+            }
+
+            window.location.href = "feedback_success.html";
+
+        } catch (error) {
+
+            console.error("Feedback Error:", error);
+
+            alert("Something went wrong. Please try again.");
+
+        }
+
+    });
+
+});
+
+</script>
   <!-- Main JavaScript File -->
   <script src="../js/script.js"></script>
 </body>

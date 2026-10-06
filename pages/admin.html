@@ -2,1109 +2,607 @@
 <html lang="en" data-theme="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Admin Panel — StudentHub</title>
+  <title>Admin Panel — StudentHub</title>
+  <meta name="description" content="Administrative control center for managing student records, campus events, and university feedback on StudentHub.">
 
-    <meta name="description"
-        content="Administrative control center for managing student records, campus events, and university feedback on StudentHub.">
+  <!-- Favicon -->
+  <link rel="icon" href="../image/favicon.ico" type="image/x-icon">
 
-    <link rel="icon" href="../image/favicon.ico" type="image/x-icon">
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Admin page: small, isolated enhancements only. */
+    .feedback-admin-section {
+      padding-top: 1rem;
+    }
+
+    .feedback-data-table th,
+    .feedback-data-table td {
+      vertical-align: top;
+    }
+
+    .feedback-message-cell {
+      min-width: 260px;
+      max-width: 460px;
+      white-space: normal;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .feedback-rating {
+      white-space: nowrap;
+      letter-spacing: 1px;
+    }
+
+    .feedback-date {
+      white-space: nowrap;
+      font-size: 0.85rem;
+    }
+
+    .feedback-empty,
+    .feedback-error {
+      text-align: center;
+      padding: 1.5rem !important;
+    }
+
+    @media (max-width: 768px) {
+      .feedback-message-cell {
+        min-width: 220px;
+      }
+    }
+  </style>
+
 </head>
 
 <body>
 
-    <!--================ HEADER / NAVBAR =================-->
-    <header class="site-header" id="topHeader">
-        <div class="container nav-container">
-
-            <!-- Brand -->
-            <a href="index.html" class="brand-logo" aria-label="StudentHub Home">
-                <div class="logo-icon">
-                    <img src="../image/StudentHub LOGO.png"
-                        alt="StudentHub Logo"
-                        class="brand-img-logo"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-
-                    <i class="fa-solid fa-graduation-cap"
-                        aria-hidden="true"
-                        style="display:none;"></i>
-                </div>
-
-                <span class="logo-text">
-                    Student<span>Hub</span>
-                    <small class="admin-badge">Admin</small>
-                </span>
-            </a>
-
-            <!-- Navigation -->
-            <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="events.html" class="nav-link">Events</a></li>
-                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
-                    <li><a href="profile.html" class="nav-link">Profile</a></li>
-                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li><a href="feedback.html" class="nav-link">Feedback</a></li>
-                    <li>
-                        <a href="admin.html"
-                            class="nav-link active"
-                            aria-current="page">
-                            Admin
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Actions -->
-            <div class="nav-actions">
-
-                <button id="themeToggleBtn"
-                    class="theme-toggle"
-                    type="button"
-                    aria-label="Toggle light and dark mode"
-                    title="Toggle Theme">
-
-                    <i class="fa-solid fa-moon dark-icon"></i>
-                    <i class="fa-solid fa-sun light-icon"></i>
-                </button>
-
-                <a href="login.html"
-                    class="btn btn-outline btn-sm">
-                    Logout
-                </a>
-
-                <button id="hamburgerBtn"
-                    class="hamburger-btn"
-                    type="button"
-                    aria-expanded="false"
-                    aria-controls="mainNav"
-                    aria-label="Toggle navigation menu">
-
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-
-            </div>
+  <!--================ HEADER / NAVBAR =================-->
+  <header class="site-header" id="topHeader">
+    <div class="container nav-container">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" aria-label="StudentHub Home">
+        <div class="logo-icon">
+          <img src="../image/StudentHub LOGO.png" alt="StudentHub Logo" class="brand-img-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+          <i class="fa-solid fa-graduation-cap" aria-hidden="true" style="display: none;"></i>
         </div>
-    </header>
+        <span class="logo-text">Student<span>Hub</span> <small class="admin-badge">Admin</small></span>
+      </a>
 
+      <!-- Navigation Links -->
+      <nav class="main-nav" id="mainNav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+          <li><a href="profile.html" class="nav-link">Profile</a></li>
+          <li><a href="faq.html" class="nav-link">FAQ</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+          <li><a href="admin.html" class="nav-link active" aria-current="page">Admin</a></li>
+        </ul>
+      </nav>
 
-    <main id="mainContent">
+      <!-- Action Group -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="theme-toggle" type="button" aria-label="Toggle light and dark mode" title="Toggle Theme">
+          <i class="fa-solid fa-moon dark-icon" aria-hidden="true"></i>
+          <i class="fa-solid fa-sun light-icon" aria-hidden="true"></i>
+        </button>
 
-        <!--================ PAGE TITLE & STATS =================-->
-        <section class="admin-header-section"
-            aria-labelledby="adminHeaderTitle">
+        <a href="../php/admin_logout.php" class="btn btn-outline btn-sm">Logout</a>
 
-            <div class="container">
+        <!-- Mobile Hamburger Toggle -->
+        <button id="hamburgerBtn" class="hamburger-btn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
 
-                <div class="section-header">
+    </div>
+  </header>
 
-                    <span class="section-subtitle">
-                        Management Console
-                    </span>
+  <main id="mainContent">
 
-                    <h1 id="adminHeaderTitle"
-                        class="section-title">
-                        Institutional Overview
-                    </h1>
+    <!--================ PAGE TITLE & STATS =================-->
+    <section class="admin-header-section" aria-labelledby="adminHeaderTitle">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-subtitle">Management Console</span>
+          <h1 id="adminHeaderTitle" class="section-title">Institutional Overview</h1>
+          <p class="section-description">
+            Monitor real-time enrollment metrics, event registrations, and campus communications.
+          </p>
+        </div>
 
-                    <p class="section-description">
-                        Monitor real-time enrollment metrics,
-                        event registrations, and campus communications.
-                    </p>
-
-                </div>
-
-
-                <!-- REAL DATABASE STATS -->
-                <div class="stats-grid">
-
-                    <!-- Students -->
-                    <div class="stat-card">
-
-                        <div class="stat-icon-wrap">
-                            <i class="fa-solid fa-user-graduate"></i>
-                        </div>
-
-                        <div class="stat-content">
-
-                            <h2 class="stat-number"
-                                id="totalStudents">
-                                0
-                            </h2>
-
-                            <p class="stat-label">
-                                Total Students
-                            </p>
-
-                        </div>
-                    </div>
-
-
-                    <!-- Events -->
-                    <div class="stat-card">
-
-                        <div class="stat-icon-wrap">
-                            <i class="fa-solid fa-calendar-days"></i>
-                        </div>
-
-                        <div class="stat-content">
-
-                            <h2 class="stat-number"
-                                id="totalEvents">
-                                0
-                            </h2>
-
-                            <p class="stat-label">
-                                Active Events
-                            </p>
-
-                        </div>
-                    </div>
-
-
-                    <!-- Registrations -->
-                    <div class="stat-card">
-
-                        <div class="stat-icon-wrap">
-                            <i class="fa-solid fa-chalkboard-user"></i>
-                        </div>
-
-                        <div class="stat-content">
-
-                            <h2 class="stat-number"
-                                id="totalRegistrations">
-                                0
-                            </h2>
-
-                            <p class="stat-label">
-                                Event Registrations
-                            </p>
-
-                        </div>
-                    </div>
-
-
-                    <!-- Courses -->
-                    <div class="stat-card">
-
-                        <div class="stat-icon-wrap">
-                            <i class="fa-solid fa-comments"></i>
-                        </div>
-
-                        <div class="stat-content">
-
-                            <h2 class="stat-number"
-                                id="totalCourses">
-                                0
-                            </h2>
-
-                            <p class="stat-label">
-                                Total Courses
-                            </p>
-
-                        </div>
-                    </div>
-
-                </div>
-
+        <div class="stats-grid">
+          
+          <div class="stat-card">
+            <div class="stat-icon-wrap"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></div>
+            <div class="stat-content">
+              <h2 class="stat-number" id="totalStudents">0</h2>
+              <p class="stat-label">Total Students</p>
             </div>
-        </section>
+          </div>
 
-
-        <!--================ STUDENTS TABLE =================-->
-        <section class="admin-table-section"
-            aria-labelledby="recentRegistrationsTitle">
-
-            <div class="container">
-
-                <div class="section-header-flex">
-
-                    <div>
-
-                        <span class="section-subtitle">
-                            Student Directory
-                        </span>
-
-                        <h2 id="recentRegistrationsTitle"
-                            class="section-title">
-
-                            Registered Students
-
-                        </h2>
-
-                    </div>
-
-
-                    <div class="table-actions">
-
-                        <input type="search"
-                            id="studentSearch"
-                            class="form-control form-control-sm"
-                            placeholder="Filter by name or ID..."
-                            aria-label="Search students">
-
-                    </div>
-
-                </div>
-
-
-                <div class="table-card">
-
-                    <div class="table-responsive">
-
-                        <table class="data-table"
-                            role="table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th scope="col">
-                                        Student ID
-                                    </th>
-
-                                    <th scope="col">
-                                        Full Name
-                                    </th>
-
-                                    <th scope="col">
-                                        Department
-                                    </th>
-
-                                    <th scope="col">
-                                        Semester
-                                    </th>
-
-                                    <th scope="col">
-                                        Account Status
-                                    </th>
-
-                                    <th scope="col">
-                                        Actions
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody id="studentsTableBody">
-
-                                <tr>
-                                    <td colspan="6"
-                                        style="text-align:center;">
-                                        Loading students...
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
+          <div class="stat-card">
+            <div class="stat-icon-wrap"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></div>
+            <div class="stat-content">
+              <h2 class="stat-number" id="totalEvents">0</h2>
+              <p class="stat-label">Active Events</p>
             </div>
-        </section>
+          </div>
 
-
-        <!--================ ADMIN ACTIONS =================-->
-        <section class="admin-actions-section"
-            aria-labelledby="adminActionsTitle">
-
-            <div class="container">
-
-                <div class="section-header">
-
-                    <span class="section-subtitle">
-                        Quick Control
-                    </span>
-
-                    <h2 id="adminActionsTitle"
-                        class="section-title">
-
-                        Administrative Operations
-
-                    </h2>
-
-                    <p class="section-description">
-
-                        Direct shortcuts for roster management,
-                        event orchestration, and system configurations.
-
-                    </p>
-
-                </div>
-
-
-                <div class="features-grid admin-actions-grid">
-
-
-                    <!-- Add Student -->
-                    <div class="feature-card admin-action-card">
-
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-user-plus"></i>
-                        </div>
-
-                        <h3>
-                            Add Student
-                        </h3>
-
-                        <p>
-                            Manually provision a student profile,
-                            assign roll numbers, and grant portal credentials.
-                        </p>
-
-                        <button class="btn btn-primary btn-sm"
-                            type="button"
-                            onclick="alert('Use the Student Registration page to add a new student.')">
-
-                            Open Panel
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- Create Event -->
-                    <div class="feature-card admin-action-card">
-
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-calendar-plus"></i>
-                        </div>
-
-                        <h3>
-                            Create Event
-                        </h3>
-
-                        <p>
-                            Publish workshops, hackathons,
-                            and guest lectures to the university calendar.
-                        </p>
-
-                        <button class="btn btn-primary btn-sm"
-                            type="button"
-                            onclick="alert('Event creation backend is not connected yet.')">
-
-                            Open Builder
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- Delete Records -->
-                    <div class="feature-card admin-action-card">
-
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </div>
-
-                        <h3>
-                            Delete Records
-                        </h3>
-
-                        <p>
-                            Archive or delete outdated student
-                            and event records.
-                        </p>
-
-                        <button class="btn btn-outline btn-sm text-danger"
-                            type="button"
-                            onclick="alert('Delete management is not connected yet.')">
-
-                            Manage Records
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- Settings -->
-                    <div class="feature-card admin-action-card">
-
-                        <div class="feature-icon">
-                            <i class="fa-solid fa-sliders"></i>
-                        </div>
-
-                        <h3>
-                            System Settings
-                        </h3>
-
-                        <p>
-                            Configure portal settings,
-                            semester information and authentication parameters.
-                        </p>
-
-                        <button class="btn btn-primary btn-sm"
-                            type="button"
-                            onclick="alert('System settings are not connected yet.')">
-
-                            Configure
-
-                        </button>
-
-                    </div>
-
-                </div>
-
+          <div class="stat-card">
+            <div class="stat-icon-wrap"><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></div>
+            <div class="stat-content">
+              <h2 class="stat-number" id="totalRegistrations">0</h2>
+              <p class="stat-label">Total Registrations</p>
             </div>
-        </section>
+          </div>
 
-    </main>
-
-
-    <!--================ FOOTER =================-->
-    <footer class="site-footer"
-        role="contentinfo">
-
-        <div class="container">
-
-            <div class="footer-grid">
-
-
-                <!-- Brand -->
-                <div class="footer-col brand-col">
-
-                    <a href="index.html"
-                        class="brand-logo footer-logo">
-
-                        <div class="logo-icon">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-
-                        <span class="logo-text">
-                            Student<span>Hub</span>
-                        </span>
-
-                    </a>
-
-                    <p class="footer-bio">
-                        Secure administrative and student management
-                        ecosystem for higher education campuses.
-                    </p>
-
-
-                    <div class="social-links"
-                        aria-label="Social media links">
-
-                        <a href="#"
-                            class="social-btn"
-                            aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-
-                        <a href="#"
-                            class="social-btn"
-                            aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-
-                        <a href="#"
-                            class="social-btn"
-                            aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-
-                        <a href="#"
-                            class="social-btn"
-                            aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Quick Links -->
-                <div class="footer-col">
-
-                    <h3 class="footer-heading">
-                        Quick Links
-                    </h3>
-
-                    <ul class="footer-links">
-
-                        <li>
-                            <a href="index.html">
-                                Home
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="about.html">
-                                About Portal
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="events.html">
-                                Campus Events
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="dashboard.html">
-                                Student Dashboard
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="faq.html">
-                                Help & FAQ
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-
-                <!-- Administration -->
-                <div class="footer-col">
-
-                    <h3 class="footer-heading">
-                        Administration
-                    </h3>
-
-                    <ul class="footer-links">
-
-                        <li>
-                            <a href="admin.html">
-                                Admin Dashboard
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="profile.html">
-                                Academic Records
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="feedback.html">
-                                Feedback Logs
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="contact.html">
-                                Campus Directory
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="login.html">
-                                Switch Session
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-
-                <!-- Contact -->
-                <div class="footer-col">
-
-                    <h3 class="footer-heading">
-                        Campus Contact
-                    </h3>
-
-                    <ul class="footer-contact-list">
-
-                        <li>
-
-                            <i class="fa-solid fa-location-dot"></i>
-
-                            <span>
-                                CHARUSAT Campus, Changa, Anand,
-                                Gujarat — 388421
-                            </span>
-
-                        </li>
-
-                        <li>
-
-                            <i class="fa-solid fa-envelope"></i>
-
-                            <a href="mailto:studenthub@gmail.com">
-                                studenthub@gmail.com
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <i class="fa-solid fa-phone"></i>
-
-                            <a href="tel:+919876543210">
-                                +91 98765 43210
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </div>
-
+          <div class="stat-card">
+            <div class="stat-icon-wrap"><i class="fa-solid fa-comments" aria-hidden="true"></i></div>
+            <div class="stat-content">
+              <h2 class="stat-number" id="totalFeedbacks">0</h2>
+              <p class="stat-label">Total Feedbacks</p>
             </div>
-
-
-            <div class="footer-bottom">
-
-                <p class="copyright-text">
-                    &copy; 2026 StudentHub. All Rights Reserved.
-                </p>
-
-                <div class="footer-legal">
-
-                    <a href="faq.html">
-                        Privacy Policy
-                    </a>
-
-                    <span>•</span>
-
-                    <a href="faq.html">
-                        System Terms
-                    </a>
-
-                </div>
-
-            </div>
+          </div>
 
         </div>
-    </footer>
 
-
-    <!-- Main JS -->
-    <script src="../js/script.js"></script>
-
-
-    <!--================ ADMIN DATABASE JS =================-->
-    <script>
-
-        let allStudents = [];
-
-
-        // ==========================================
-        // LOAD REAL DATA FROM admin.php
-        // ==========================================
-
-        async function loadAdminData() {
-
-            const studentsBody =
-                document.getElementById("studentsTableBody");
-
-            try {
-
-                const response =
-                    await fetch("../php/admin.php", {
-                        method: "GET",
-                        cache: "no-store"
-                    });
-
-
-                if (!response.ok) {
-                    throw new Error(
-                        "Server returned " + response.status
-                    );
-                }
-
-
-                const data =
-                    await response.json();
-
-
-                if (!data.success) {
-                    throw new Error(
-                        data.message || "Unable to load admin data."
-                    );
-                }
-
-
-                // ==========================================
-                // STATISTICS
-                // ==========================================
-
-                document.getElementById("totalStudents")
-                    .textContent =
-                    data.statistics.students;
-
-
-                document.getElementById("totalEvents")
-                    .textContent =
-                    data.statistics.events;
-
-
-                document.getElementById("totalRegistrations")
-                    .textContent =
-                    data.statistics.registrations;
-
-
-                document.getElementById("totalCourses")
-                    .textContent =
-                    data.statistics.courses;
-
-
-                // ==========================================
-                // STUDENTS
-                // ==========================================
-
-                allStudents =
-                    Array.isArray(data.students)
-                        ? data.students
-                        : [];
-
-
-                renderStudents(allStudents);
-
-
-            } catch (error) {
-
-                console.error(
-                    "Admin data error:",
-                    error
-                );
-
-
-                studentsBody.innerHTML = `
-                    <tr>
-                        <td colspan="6"
-                            style="text-align:center;color:#d32f2f;">
-                            Failed to load data from database.
-                            <br>
-                            <small>${escapeHtml(error.message)}</small>
-                        </td>
-                    </tr>
-                `;
-
-            }
-
-        }
-
-
-        // ==========================================
-        // RENDER STUDENTS
-        // ==========================================
-
-        function renderStudents(students) {
-
-            const tbody =
-                document.getElementById(
-                    "studentsTableBody"
-                );
-
-
-            if (!students.length) {
-
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6"
-                            style="text-align:center;">
-                            No students found.
-                        </td>
-                    </tr>
-                `;
-
-                return;
-            }
-
-
-            tbody.innerHTML =
-                students.map(student => {
-
-                    const studentId =
-                        student.enrollment_number
-                            || student.id
-                            || "-";
-
-
-                    const name =
-                        student.name || "-";
-
-
-                    const department =
-                        getDepartment(
-                            student.course_name
-                        );
-
-
-                    const semester =
-                        student.semester
-                            ? "Semester " + student.semester
-                            : "-";
-
-
-                    return `
-                        <tr>
-
-                            <td>
-                                <strong>
-                                    ${escapeHtml(studentId)}
-                                </strong>
-                            </td>
-
-                            <td>
-                                ${escapeHtml(name)}
-                            </td>
-
-                            <td>
-                                <span class="dept-badge">
-                                    ${escapeHtml(department)}
-                                </span>
-                            </td>
-
-                            <td>
-                                ${escapeHtml(semester)}
-                            </td>
-
-                            <td>
-                                <span class="status-badge status-active">
-                                    Active
-                                </span>
-                            </td>
-
-                            <td>
-
-                                <button
-                                    class="btn btn-ghost btn-sm"
-                                    type="button"
-                                    onclick='showStudent(${JSON.stringify(student)})'>
-
-                                    View
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-                    `;
-
-                }).join("");
-
-        }
-
-
-        // ==========================================
-        // DEPARTMENT
-        // ==========================================
-
-        function getDepartment(courseName) {
-
-            if (!courseName) {
-                return "-";
-            }
-
-            const name =
-                courseName.toLowerCase();
-
-
-            if (name.includes("information")) {
-                return "IT";
-            }
-
-            if (name.includes("computer")) {
-                return "CE";
-            }
-
-            if (name.includes("mechanical")) {
-                return "ME";
-            }
-
-            if (name.includes("electrical")) {
-                return "EE";
-            }
-
-            if (name.includes("civil")) {
-                return "CE";
-            }
-
-
-            return courseName;
-
-        }
-
-
-        // ==========================================
-        // VIEW STUDENT
-        // ==========================================
-
-        function showStudent(student) {
-
-            const details = `
-
-Student Details
-
-Name: ${student.name || "-"}
-Email: ${student.email || "-"}
-Mobile: ${student.mobile || "-"}
-Enrollment: ${student.enrollment_number || "-"}
-Department: ${student.course_name || "-"}
-Semester: ${student.semester || "-"}
-City: ${student.city || "-"}
-Gender: ${student.gender || "-"}
-
-            `;
-
-            alert(details);
-
-        }
-
-
-        // ==========================================
-        // SEARCH STUDENTS
-        // ==========================================
-
-        document
-            .getElementById("studentSearch")
-            .addEventListener("input", function () {
-
-                const search =
-                    this.value
-                        .trim()
-                        .toLowerCase();
-
-
-                if (!search) {
-
-                    renderStudents(
-                        allStudents
-                    );
-
-                    return;
-                }
-
-
-                const filtered =
-                    allStudents.filter(student => {
-
-                        const name =
-                            String(
-                                student.name || ""
-                            ).toLowerCase();
-
-
-                        const enrollment =
-                            String(
-                                student.enrollment_number || ""
-                            ).toLowerCase();
-
-
-                        const email =
-                            String(
-                                student.email || ""
-                            ).toLowerCase();
-
-
-                        return (
-                            name.includes(search) ||
-                            enrollment.includes(search) ||
-                            email.includes(search)
-                        );
-
-                    });
-
-
-                renderStudents(filtered);
-
-            });
-
-
-        // ==========================================
-        // HTML ESCAPE
-        // ==========================================
-
-        function escapeHtml(value) {
-
-            return String(value ?? "")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-
-        }
-
-
-        // ==========================================
-        // START
-        // ==========================================
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            loadAdminData
-        );
-
-    </script>
-<script>
-
-    async function checkAdminAccess() {
-
-        try {
-
-            const response =
-                await fetch("../php/admin.php", {
-                    method: "GET",
-                    cache: "no-store"
-                });
-
-
-            if (response.status === 401) {
-
-                window.location.replace(
-                    "admin-login.html"
-                );
-
-                return false;
-            }
-
-
-            return true;
-
-        } catch (error) {
-
-            window.location.replace(
-                "admin-login.html"
-            );
-
-            return false;
-
-        }
-
+      </div>
+    </section>
+
+    <!--================ RECENT REGISTRATIONS TABLE =================-->
+    <section class="admin-table-section" aria-labelledby="recentRegistrationsTitle">
+      <div class="container">
+        
+        <div class="section-header-flex">
+          <div>
+            <span class="section-subtitle">Student Directory</span>
+            <h2 id="recentRegistrationsTitle" class="section-title">Recent Student Registrations</h2>
+          </div>
+          <div class="table-actions">
+            <input type="search" class="form-control form-control-sm" id="studentSearch" placeholder="Filter by name or ID..." aria-label="Search student registrations">
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="data-table" role="table">
+              <thead>
+                <tr>
+                  <th scope="col">Student ID</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Semester</th>
+                  <th scope="col">Account Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTableBody">
+                <tr>
+                  <td colspan="6" style="text-align:center;">Loading students...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+    <!--================ STUDENT FEEDBACK =================-->
+    <section class="admin-table-section feedback-admin-section" aria-labelledby="feedbackSectionTitle">
+      <div class="container">
+
+        <div class="section-header-flex">
+          <div>
+            <span class="section-subtitle">Student Voice</span>
+            <h2 id="feedbackSectionTitle" class="section-title">Student Feedback</h2>
+            <p class="section-description">
+              Review feedback submitted by students through the StudentHub feedback form.
+            </p>
+          </div>
+          <div class="table-actions">
+            <span id="feedbackCount" class="status-badge status-active">0 Feedback</span>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-responsive">
+            <table class="data-table feedback-data-table" role="table">
+              <thead>
+                <tr>
+                  <th scope="col">Student</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Enrollment</th>
+                  <th scope="col">Rating</th>
+                  <th scope="col">Feedback</th>
+                  <th scope="col">Submitted</th>
+                </tr>
+              </thead>
+              <tbody id="feedbackTableBody">
+                <tr>
+                  <td colspan="6" style="text-align:center;">Loading feedback...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!--================ ADMIN ACTIONS =================-->
+    <section class="admin-actions-section" aria-labelledby="adminActionsTitle">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-subtitle">Quick Control</span>
+          <h2 id="adminActionsTitle" class="section-title">Administrative Operations</h2>
+          <p class="section-description">
+            Direct shortcuts for roster management, event orchestration, and system configurations.
+          </p>
+        </div>
+
+        <div class="features-grid admin-actions-grid">
+          
+          <div class="feature-card admin-action-card">
+            <div class="feature-icon"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></div>
+            <h3>Add Student</h3>
+            <p>Manually provision a student profile, assign roll numbers, and grant portal credentials.</p>
+            <button class="btn btn-primary btn-sm" type="button">Open Panel</button>
+          </div>
+
+          <div class="feature-card admin-action-card">
+            <div class="feature-icon"><i class="fa-solid fa-calendar-plus" aria-hidden="true"></i></div>
+            <h3>Create Event</h3>
+            <p>Publish workshops, hackathons, and guest lectures to the university discovery calendar.</p>
+            <button class="btn btn-primary btn-sm" type="button">Open Builder</button>
+          </div>
+
+          <div class="feature-card admin-action-card">
+            <div class="feature-icon"><i class="fa-solid fa-trash-can" aria-hidden="true"></i></div>
+            <h3>Delete Records</h3>
+            <p>Archive or delete graduated alumni data, unverified entries, and outdated event logs.</p>
+            <button class="btn btn-outline btn-sm text-danger" type="button">Manage Records</button>
+          </div>
+
+          <div class="feature-card admin-action-card">
+            <div class="feature-icon"><i class="fa-solid fa-sliders" aria-hidden="true"></i></div>
+            <h3>System Settings</h3>
+            <p>Configure semester dates, portal maintenance mode, and authentication parameters.</p>
+            <button class="btn btn-primary btn-sm" type="button">Configure</button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!--================ SITE FOOTER =================-->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Column 1: Brand -->
+        <div class="footer-col brand-col">
+          <a href="index.html" class="brand-logo footer-logo">
+            <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <span class="logo-text">Student<span>Hub</span></span>
+          </a>
+          <p class="footer-bio">
+            Secure administrative and student management ecosystem for higher education campuses.
+          </p>
+          <div class="social-links" aria-label="Social media links">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h3 class="footer-heading">Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Portal</a></li>
+            <li><a href="events.html">Campus Events</a></li>
+            <li><a href="dashboard.html">Student Dashboard</a></li>
+            <li><a href="faq.html">Help & FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Administration Links -->
+        <div class="footer-col">
+          <h3 class="footer-heading">Administration</h3>
+          <ul class="footer-links">
+            <li><a href="admin.html">Admin Dashboard</a></li>
+            <li><a href="profile.html">Academic Records</a></li>
+            <li><a href="feedback.html">Feedback Logs</a></li>
+            <li><a href="contact.html">Campus Directory</a></li>
+            <li><a href="admin-login.html">Switch Session</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Contact -->
+        <div class="footer-col">
+          <h3 class="footer-heading">Campus Contact</h3>
+          <ul class="footer-contact-list">
+            <li>
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <span>CHARUSAT Campus, Changa, Anand, Gujarat — 388421</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <a href="mailto:studenthub@gmail.com">studenthub@gmail.com</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <a href="tel:+919876543210">+91 98765 43210</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright-text">
+          &copy; 2026 StudentHub. All Rights Reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="faq.html">Privacy Policy</a>
+          <span>•</span>
+          <a href="faq.html">System Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="../js/script.js"></script>
+
+
+  <!--================ ADMIN DATABASE JS =================-->
+  <script>
+    let allStudents = [];
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
+    function setText(id, value) {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value ?? "";
+    }
 
-    checkAdminAccess();
+    function renderStudents(students) {
+      const body = document.getElementById("studentsTableBody");
+      if (!body) return;
 
-</script>
+      if (!Array.isArray(students) || students.length === 0) {
+        body.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align:center;">No students found.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      body.innerHTML = students.map((student) => {
+        const id = escapeHtml(student.id ?? "");
+        const name = escapeHtml(student.name ?? "N/A");
+        const department = escapeHtml(student.department ?? "N/A");
+        const semester = escapeHtml(student.semester ?? "N/A");
+
+        return `
+          <tr>
+            <td><strong>#${id}</strong></td>
+            <td>${name}</td>
+            <td><span class="dept-badge">${department}</span></td>
+            <td>${semester}</td>
+            <td><span class="status-badge status-active">Active</span></td>
+            <td>
+              <button class="btn btn-ghost btn-sm" type="button" disabled title="Student editing is not connected yet.">
+                View
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    async function loadAdminData() {
+      const studentsBody = document.getElementById("studentsTableBody");
+
+      try {
+        const response = await fetch("../php/admin.php", {
+          method: "GET",
+          credentials: "same-origin",
+          cache: "no-store",
+          headers: { "Accept": "application/json" }
+        });
+
+        if (response.status === 401) {
+          window.location.href = "admin-login.html";
+          return;
+        }
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || "Unable to load admin data.");
+        }
+
+        setText("totalStudents", data.statistics?.students ?? 0);
+        setText("totalEvents", data.statistics?.events ?? 0);
+        setText("totalRegistrations", data.statistics?.registrations ?? 0);
+
+        allStudents = Array.isArray(data.students) ? data.students : [];
+        renderStudents(allStudents);
+      } catch (error) {
+        console.error("Admin data error:", error);
+        if (studentsBody) {
+          studentsBody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align:center;">
+                Unable to load student data.
+              </td>
+            </tr>
+          `;
+        }
+      }
+    }
+
+    function filterStudents() {
+      const searchInput = document.getElementById("studentSearch");
+      const query = (searchInput?.value || "").trim().toLowerCase();
+
+      if (!query) {
+        renderStudents(allStudents);
+        return;
+      }
+
+      const filtered = allStudents.filter((student) => {
+        const searchable = [
+          student.id,
+          student.name,
+          student.email,
+          student.enrollment_number,
+          student.department,
+          student.semester
+        ].join(" ").toLowerCase();
+
+        return searchable.includes(query);
+      });
+
+      renderStudents(filtered);
+    }
+
+    function renderFeedback(feedback) {
+      const body = document.getElementById("feedbackTableBody");
+      const count = document.getElementById("feedbackCount");
+
+      if (count) {
+        count.textContent = `${Array.isArray(feedback) ? feedback.length : 0} Feedback`;
+      }
+
+      if (!body) return;
+
+      if (!Array.isArray(feedback) || feedback.length === 0) {
+        body.innerHTML = `
+          <tr>
+            <td colspan="6" class="feedback-empty">No feedback submitted yet.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      body.innerHTML = feedback.map((item) => {
+        const rating = Math.max(0, Math.min(5, Number(item.rating) || 0));
+        const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+        const submitted = item.submitted_at
+          ? new Date(String(item.submitted_at).replace(" ", "T")).toLocaleString("en-IN")
+          : "N/A";
+
+        return `
+          <tr>
+            <td><strong>${escapeHtml(item.name || "N/A")}</strong></td>
+            <td>${escapeHtml(item.email || "N/A")}</td>
+            <td>${escapeHtml(item.enrollment_number || "N/A")}</td>
+            <td class="feedback-rating" aria-label="${rating} out of 5">
+              ${stars}
+            </td>
+            <td class="feedback-message-cell">${escapeHtml(item.message || "")}</td>
+            <td class="feedback-date">${escapeHtml(submitted)}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    async function loadAdminFeedback() {
+      const body = document.getElementById("feedbackTableBody");
+
+      try {
+        const response = await fetch("../php/admin_feedback.php", {
+          method: "GET",
+          credentials: "same-origin",
+          cache: "no-store",
+          headers: { "Accept": "application/json" }
+        });
+
+        if (response.status === 401) {
+          window.location.href = "admin-login.html";
+          return;
+        }
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || "Unable to load feedback.");
+        }
+
+        const feedback = Array.isArray(data.feedback) ? data.feedback : [];
+        setText("totalFeedbacks", feedback.length);
+        renderFeedback(feedback);
+      } catch (error) {
+        console.error("Feedback error:", error);
+        setText("totalFeedbacks", 0);
+        const count = document.getElementById("feedbackCount");
+        if (count) count.textContent = "Unable to load";
+
+        if (body) {
+          body.innerHTML = `
+            <tr>
+              <td colspan="6" class="feedback-error">
+                Unable to load feedback. Please refresh the page.
+              </td>
+            </tr>
+          `;
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      loadAdminData();
+      loadAdminFeedback();
+
+      const searchInput = document.getElementById("studentSearch");
+      if (searchInput) {
+        searchInput.addEventListener("input", filterStudents);
+      }
+    });
+  </script>
+
 </body>
 
 </html>

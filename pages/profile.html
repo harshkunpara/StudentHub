@@ -86,22 +86,22 @@
           
           <div class="profile-summary-bar">
             <div class="profile-avatar-wrapper">
-              <img src="../image/HP p.jpeg" alt="Harsh Patel profile portrait" class="profile-avatar-img" onerror="this.src='../image/Medical_';">
+              <img src="../image/HP p.jpeg" alt="Profile portrait" class="profile-avatar-img" onerror="this.src='../image/Medical_';">
               <span class="avatar-status-dot" title="Verified Student"></span>
             </div>
 
             <div class="profile-primary-details">
               <div class="profile-tags-row">
-                <span class="dept-badge">Information Technology</span>
+                <span id="profileDepartment" class="dept-badge">Information Technology</span>
                 <span class="status-badge status-active">Active Student</span>
               </div>
-              <h1 id="profileHeading" class="profile-name">Harsh Patel</h1>
+              <h1 id="profileHeading" class="profile-name">Student</h1>
               <p class="profile-meta-line">
-                <span><i class="fa-solid fa-id-card" aria-hidden="true"></i> 25IT048</span> 
+                <span><i class="fa-solid fa-id-card" aria-hidden="true"></i> <span id="profileEnrollment">N/A</span></span> 
                 <span>•</span>
                 <span><i class="fa-solid fa-building-columns" aria-hidden="true"></i> CHARUSAT University</span>
                 <span>•</span>
-                <span><i class="fa-solid fa-layer-group" aria-hidden="true"></i> Semester 3</span>
+                <span><i class="fa-solid fa-layer-group" aria-hidden="true"></i> <span id="profileSemester">N/A</span></span>
               </p>
             </div>
 
@@ -145,23 +145,23 @@
                 </div>
                 <div class="spec-item">
                   <span class="spec-label">Department / Branch</span>
-                  <strong class="spec-val">Information Technology (IT)</strong>
+                  <strong id="academicDepartment" class="spec-val">Information Technology (IT)</strong>
                 </div>
                 <div class="spec-item">
                   <span class="spec-label">Current Term</span>
-                  <strong class="spec-val">Semester 3</strong>
+                  <strong id="academicSemester" class="spec-val">N/A</strong>
                 </div>
                 <div class="spec-item">
                   <span class="spec-label">Enrollment ID</span>
-                  <strong class="spec-val">25IT048</strong>
+                  <strong id="academicEnrollment" class="spec-val">N/A</strong>
                 </div>
                 <div class="spec-item">
                   <span class="spec-label">Cumulative CGPA</span>
-                  <strong class="spec-val text-primary">7.50 / 10.0</strong>
+                  <strong id="academicCgpa" class="spec-val text-primary">N/A</strong>
                 </div>
                 <div class="spec-item">
                   <span class="spec-label">Semester Attendance</span>
-                  <strong class="spec-val text-success">92% (Regular)</strong>
+                  <strong id="academicAttendance" class="spec-val text-success">N/A</strong>
                 </div>
               </div>
             </div>
@@ -184,7 +184,7 @@
                     <label for="profFullName" class="form-label">Full Name</label>
                     <div class="input-icon-wrap">
                       <i class="fa-regular fa-user input-icon" aria-hidden="true"></i>
-                      <input type="text" id="profFullName" name="name" class="form-control" value="Harsh Patel" required>
+                      <input type="text" id="profFullName" name="name" class="form-control" value="" required>
                     </div>
                   </div>
 
@@ -192,7 +192,7 @@
                     <label for="profEmail" class="form-label">Registered Email</label>
                     <div class="input-icon-wrap">
                       <i class="fa-regular fa-envelope input-icon" aria-hidden="true"></i>
-                      <input type="email" id="profEmail" name="email" class="form-control" value="harsh@email.com" required>
+                      <input type="email" id="profEmail" name="email" class="form-control" value="" required>
                     </div>
                   </div>
                 </div>
@@ -202,7 +202,7 @@
                     <label for="profPhone" class="form-label">Phone Number</label>
                     <div class="input-icon-wrap">
                       <i class="fa-solid fa-phone input-icon" aria-hidden="true"></i>
-                      <input type="tel" id="profPhone" name="phone" class="form-control" value="+91 9876543210" required>
+                      <input type="tel" id="profPhone" name="phone" class="form-control" value="" required>
                     </div>
                   </div>
 
@@ -228,7 +228,7 @@
 
                   <div class="form-group">
                     <label for="profBranch" class="form-label">Department / Branch</label>
-                    <input type="text" id="profBranch" name="branch" class="form-control" value="Information Technology" readonly>
+                    <input type="text" id="profBranch" name="branch" class="form-control" value="" readonly>
                   </div>
                 </div>
 
@@ -429,6 +429,64 @@
 
   <!-- Main JavaScript File -->
   <script src="../js/script.js"></script>
+
+<script>
+async function loadProfileData() {
+  try {
+    const response = await fetch("../php/profile.php", {
+      method: "GET",
+      credentials: "same-origin",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (response.status === 401) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Unable to load profile data.");
+    }
+
+    const student = data.student;
+    const semester = student.semester == null ? "N/A" : String(student.semester);
+    const semesterText = /^\d+$/.test(semester) ? `Semester ${semester}` : semester;
+
+    document.getElementById("profileHeading").textContent = student.name || "Student";
+    document.getElementById("profileDepartment").textContent = student.department || "N/A";
+    document.getElementById("profileEnrollment").textContent = student.enrollment_number || "N/A";
+    document.getElementById("profileSemester").textContent = semesterText;
+
+    document.getElementById("academicDepartment").textContent = student.department || "N/A";
+    document.getElementById("academicSemester").textContent = semesterText;
+    document.getElementById("academicEnrollment").textContent = student.enrollment_number || "N/A";
+
+    document.getElementById("academicCgpa").textContent =
+      student.cgpa === null || student.cgpa === "" || student.cgpa === undefined
+        ? "N/A"
+        : `${parseFloat(student.cgpa).toFixed(2)} / 10.0`;
+
+    document.getElementById("academicAttendance").textContent =
+      student.attendance === null || student.attendance === "" || student.attendance === undefined
+        ? "N/A"
+        : `${parseFloat(student.attendance).toFixed(2)}% (Regular)`;
+
+    document.getElementById("profFullName").value = student.name || "";
+    document.getElementById("profEmail").value = student.email || "";
+    document.getElementById("profPhone").value = student.mobile || "";
+    document.getElementById("profBranch").value = student.department || "";
+
+  } catch (error) {
+    console.error("Profile Error:", error);
+    alert("Unable to load profile data. Please login again.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadProfileData);
+</script>
+
 </body>
 
 </html>
