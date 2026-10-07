@@ -1,8 +1,9 @@
 <?php
-$host = "localhost";
-$dbname = "studenthub";
-$username = "root";
-$password = "";
+
+$host = "sql212.infinityfree.com";
+$dbname = "if0_43115119_studenthub";
+$username = "if0_43115119";
+$password = "HARSH12345IT25";//YOUR_INFINITYFREE_MYSQL_PASSWORD
 
 try {
     $pdo = new PDO(
@@ -19,4 +20,5 @@ try {
     http_response_code(500);
     die("Database connection failed: " . htmlspecialchars($e->getMessage()));
 }
+
 ?>
