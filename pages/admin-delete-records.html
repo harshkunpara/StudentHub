@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin — Delete Records | StudentHub</title>
+
+    <link rel="icon" href="../image/favicon.ico" type="image/x-icon">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+
+    <style>
+
+        /* =========================================
+           DELETE RECORDS PAGE
+        ========================================= */
+
+        .delete-records-section {
+            padding: 5rem 0;
+            min-height: 75vh;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .delete-page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .delete-page-header .section-subtitle {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
+
+        .delete-page-header .section-title {
+            margin-bottom: 0.8rem;
+        }
+
+        .delete-page-header .section-description {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+
+        .admin-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+
+            margin-bottom: 0.8rem;
+            padding: 0.4rem 0.85rem;
+
+            border-radius: 999px;
+
+            background: rgba(211, 47, 47, 0.09);
+            color: #d32f2f;
+
+            font-size: 0.78rem;
+            font-weight: 700;
+
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================
+           RECORD CARD
+        ========================================= */
+
+        .records-card {
+            max-width: 1100px;
+            margin: 0 auto 2rem;
+
+            background: var(--bg-surface);
+
+            border: 1px solid var(--border-subtle);
+
+            border-radius: var(--radius-xl);
+
+            box-shadow: var(--shadow-lg);
+
+            overflow: hidden;
+        }
+
+
+        /* =========================================
+           CARD HEADER
+        ========================================= */
+
+        .records-card-header {
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 1rem;
+
+            padding: 1.5rem 2rem;
+
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+
+        .records-card-title {
+
+            display: flex;
+            align-items: center;
+
+            gap: 0.8rem;
+        }
+
+
+        .records-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: rgba(66, 92, 240, 0.1);
+
+            color: var(--primary);
+        }
+
+
+        .records-card-title h2 {
+
+            margin: 0;
+
+            font-size: 1.25rem;
+
+        }
+
+
+        .record-count {
+
+            padding: 0.35rem 0.7rem;
+
+            border-radius: 999px;
+
+            background: var(--bg-muted);
+
+            color: var(--text-secondary);
+
+            font-size: 0.8rem;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        .records-table-wrapper {
+
+            overflow-x: auto;
+        }
+
+
+        .records-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 750px;
+
+        }
+
+
+        .records-table th {
+
+            padding: 1rem 1.5rem;
+
+            text-align: left;
+
+            background: var(--bg-muted);
+
+            color: var(--text-secondary);
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.04em;
+
+        }
+
+
+        .records-table td {
+
+            padding: 1.1rem 1.5rem;
+
+            border-top: 1px solid var(--border-subtle);
+
+            color: var(--text-primary);
+
+            font-size: 0.92rem;
+
+        }
+
+
+        .records-table tr:hover td {
+
+            background: rgba(66, 92, 240, 0.025);
+
+        }
+
+
+        .student-name {
+
+            font-weight: 700;
+
+        }
+
+
+        .student-email {
+
+            color: var(--text-secondary);
+
+            font-size: 0.84rem;
+
+        }
+
+
+        .event-title {
+
+            font-weight: 700;
+
+        }
+
+
+        .event-category {
+
+            display: inline-block;
+
+            padding: 0.3rem 0.65rem;
+
+            border-radius: 999px;
+
+            background: rgba(66, 92, 240, 0.1);
+
+            color: var(--primary);
+
+            font-size: 0.76rem;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================================
+           DELETE BUTTON
+        ========================================= */
+
+        .delete-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 0.4rem;
+
+            padding: 0.55rem 0.9rem;
+
+            border: 1px solid rgba(211, 47, 47, 0.35);
+
+            border-radius: var(--radius-md);
+
+            background: transparent;
+
+            color: #d32f2f;
+
+            font-family: inherit;
+
+            font-size: 0.82rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+
+        }
+
+
+        .delete-btn:hover {
+
+            background: #d32f2f;
+
+            color: white;
+
+            border-color: #d32f2f;
+
+        }
+
+
+        /* =========================================
+           EMPTY / LOADING
+        ========================================= */
+
+        .records-message {
+
+            padding: 2.5rem;
+
+            text-align: center;
+
+            color: var(--text-secondary);
+
+        }
+
+
+        .records-message i {
+
+            display: block;
+
+            margin-bottom: 0.7rem;
+
+            font-size: 2rem;
+
+            opacity: 0.5;
+
+        }
+
+
+        /* =========================================
+           BOTTOM ACTIONS
+        ========================================= */
+
+        .page-actions {
+
+            max-width: 1100px;
+
+            margin: 2rem auto 0;
+
+            display: flex;
+
+            justify-content: flex-start;
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .delete-records-section {
+
+                padding: 3rem 0;
+
+            }
+
+            .records-card-header {
+
+                padding: 1.2rem;
+
+            }
+
+            .page-actions {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header" id="topHeader">
+
+        <div class="container nav-container">
+
+
+            <!-- Logo -->
+
+            <a
+                href="admin.html"
+                class="brand-logo"
+                aria-label="StudentHub Admin">
+
+                <div class="logo-icon">
+
+                    <img
+                        src="../image/StudentHub LOGO.png"
+                        alt="StudentHub Logo"
+                        class="brand-img-logo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+
+                    <i
+                        class="fa-solid fa-graduation-cap"
+                        aria-hidden="true"
+                        style="display:none;">
+                    </i>
+
+                </div>
+
+
+                <span class="logo-text">
+
+                    Student<span>Hub</span>
+
+                    <small class="admin-badge">
+                        Admin
+                    </small>
+
+                </span>
+
+            </a>
+
+
+
+            <!-- Navigation -->
+
+            <nav class="main-nav" id="mainNav">
+
+                <ul class="nav-list">
+
+                    <li>
+
+                        <a
+                            href="admin.html"
+                            class="nav-link active">
+
+                            Admin Dashboard
+
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a
+                            href="index.html"
+                            class="nav-link">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+
+            <!-- Actions -->
+
+            <div class="nav-actions">
+
+                <button
+                    id="themeToggleBtn"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Toggle Theme">
+
+                    <i class="fa-solid fa-moon dark-icon"></i>
+
+                    <i class="fa-solid fa-sun light-icon"></i>
+
+                </button>
+
+
+                <a
+                    href="../php/admin_logout.php"
+                    class="btn btn-outline btn-sm">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <section class="delete-records-section">
+
+            <div class="container">
+
+
+                <!-- PAGE HEADER -->
+
+                <div class="delete-page-header">
+
+                    <span class="admin-label">
+
+                        <i class="fa-solid fa-trash-can"></i>
+
+                        Admin Panel
+
+                    </span>
+
+
+                    <span class="section-subtitle">
+
+                        Record Management
+
+                    </span>
+
+
+                    <h1 class="section-title">
+
+                        Delete Records
+
+                    </h1>
+
+
+                    <p class="section-description">
+
+                        Manage and remove student and event records
+                        from the StudentHub database.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- ================= STUDENTS ================= -->
+
+                <div class="records-card">
+
+
+                    <div class="records-card-header">
+
+                        <div class="records-card-title">
+
+                            <div class="records-icon">
+
+                                <i class="fa-solid fa-users"></i>
+
+                            </div>
+
+
+                            <h2>
+                                Student Records
+                            </h2>
+
+                        </div>
+
+
+                        <span
+                            class="record-count"
+                            id="studentCount">
+
+                            0 Students
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="records-table-wrapper">
+
+                        <table class="records-table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        ID
+                                    </th>
+
+                                    <th>
+                                        Student
+                                    </th>
+
+                                    <th>
+                                        Enrollment
+                                    </th>
+
+                                    <th>
+                                        Department
+                                    </th>
+
+                                    <th>
+                                        Semester
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="studentsTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="6"
+                                        class="records-message">
+
+                                        <i class="fa-solid fa-spinner"></i>
+
+                                        Loading student records...
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= EVENTS ================= -->
+
+                <div class="records-card">
+
+
+                    <div class="records-card-header">
+
+                        <div class="records-card-title">
+
+                            <div class="records-icon">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                            </div>
+
+
+                            <h2>
+                                Event Records
+                            </h2>
+
+                        </div>
+
+
+                        <span
+                            class="record-count"
+                            id="eventCount">
+
+                            0 Events
+
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="records-table-wrapper">
+
+                        <table class="records-table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        ID
+                                    </th>
+
+                                    <th>
+                                        Event
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Category
+                                    </th>
+
+                                    <th>
+                                        Location
+                                    </th>
+
+                                    <th>
+                                        Action
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="eventsTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="6"
+                                        class="records-message">
+
+                                        <i class="fa-solid fa-spinner"></i>
+
+                                        Loading event records...
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= BACK ================= -->
+
+                <div class="page-actions">
+
+                    <a
+                        href="admin.html"
+                        class="btn btn-outline">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back to Admin Dashboard
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-bottom">
+
+                <p class="copyright-text">
+
+                    © 2026 StudentHub. All Rights Reserved.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- Main JS -->
+
+    <script src="../js/script.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", loadDeleteRecords);
+
+
+async function loadDeleteRecords() {
+
+    const studentsBody =
+        document.getElementById("studentsTableBody");
+
+    const eventsBody =
+        document.getElementById("eventsTableBody");
+
+    const studentCount =
+        document.getElementById("studentCount");
+
+    const eventCount =
+        document.getElementById("eventCount");
+
+
+    try {
+
+        const response = await fetch(
+            "../php/admin_delete_record.php",
+            {
+                method: "GET",
+                cache: "no-store"
+            }
+        );
+
+
+        if (response.status === 401) {
+
+            window.location.href = "admin-login.html";
+
+            return;
+        }
+
+
+        const data = await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message || "Unable to load records."
+            );
+        }
+
+
+        const students =
+            Array.isArray(data.students)
+                ? data.students
+                : [];
+
+
+        const events =
+            Array.isArray(data.events)
+                ? data.events
+                : [];
+
+
+        /* =====================================
+           COUNTS
+        ===================================== */
+
+        studentCount.textContent =
+            students.length +
+            (students.length === 1
+                ? " Student"
+                : " Students");
+
+
+        eventCount.textContent =
+            events.length +
+            (events.length === 1
+                ? " Event"
+                : " Events");
+
+
+        /* =====================================
+           STUDENTS
+        ===================================== */
+
+        if (students.length === 0) {
+
+            studentsBody.innerHTML = `
+                <tr>
+                    <td colspan="6"
+                        class="records-message">
+                        No student records found.
+                    </td>
+                </tr>
+            `;
+
+        } else {
+
+            studentsBody.innerHTML =
+                students.map(student => {
+
+                    return `
+                        <tr>
+
+                            <td>
+                                #${Number(student.id)}
+                            </td>
+
+                            <td>
+
+                                <div class="student-name">
+                                    ${escapeHtml(student.name)}
+                                </div>
+
+                                <div class="student-email">
+                                    ${escapeHtml(student.email)}
+                                </div>
+
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    student.enrollment_number || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    student.course_name || "N/A"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    student.semester || "-"
+                                )}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    type="button"
+                                    class="delete-btn"
+                                    onclick="deleteRecord('student', ${Number(student.id)}, '${escapeJs(student.name)}')">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    `;
+
+                }).join("");
+        }
+
+
+
+        /* =====================================
+           EVENTS
+        ===================================== */
+
+        if (events.length === 0) {
+
+            eventsBody.innerHTML = `
+                <tr>
+                    <td colspan="6"
+                        class="records-message">
+                        No event records found.
+                    </td>
+                </tr>
+            `;
+
+        } else {
+
+            eventsBody.innerHTML =
+                events.map(event => {
+
+                    return `
+                        <tr>
+
+                            <td>
+                                #${Number(event.event_id)}
+                            </td>
+
+                            <td>
+
+                                <div class="event-title">
+                                    ${escapeHtml(event.title)}
+                                </div>
+
+                            </td>
+
+                            <td>
+                                ${formatDate(event.event_date)}
+                            </td>
+
+                            <td>
+
+                                <span class="event-category">
+                                    ${escapeHtml(
+                                        event.category || "-"
+                                    )}
+                                </span>
+
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    event.location || "-"
+                                )}
+                            </td>
+
+                            <td>
+
+                                <button
+                                    type="button"
+                                    class="delete-btn"
+                                    onclick="deleteRecord('event', ${Number(event.event_id)}, '${escapeJs(event.title)}')">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                    Delete
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    `;
+
+                }).join("");
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete records loading error:",
+            error
+        );
+
+
+        studentsBody.innerHTML = `
+            <tr>
+                <td colspan="6"
+                    class="records-message">
+
+                    Failed to load student records.
+
+                </td>
+            </tr>
+        `;
+
+
+        eventsBody.innerHTML = `
+            <tr>
+                <td colspan="6"
+                    class="records-message">
+
+                    Failed to load event records.
+
+                </td>
+            </tr>
+        `;
+    }
+}
+
+
+
+/* =========================================
+   DELETE RECORD
+========================================= */
+
+async function deleteRecord(type, id, name) {
+
+
+    const recordType =
+        type === "student"
+            ? "student"
+            : "event";
+
+
+    const confirmed = confirm(
+        `Are you sure you want to delete this ${recordType}?\n\n` +
+        `"${name}"\n\n` +
+        `This action cannot be undone.`
+    );
+
+
+    if (!confirmed) {
+
+        return;
+    }
+
+
+    try {
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append("type", type);
+
+        formData.append("id", id);
+
+
+        const response = await fetch(
+            "../php/admin_delete_record.php",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+
+        if (response.status === 401) {
+
+            window.location.href =
+                "admin-login.html";
+
+            return;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to delete record."
+            );
+        }
+
+
+        alert(data.message);
+
+
+        // Reload records
+
+        loadDeleteRecords();
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete error:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Something went wrong while deleting."
+        );
+    }
+}
+
+
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+
+        return "-";
+    }
+
+
+    const date =
+        new Date(dateString + "T00:00:00");
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+}
+
+
+
+/* =========================================
+   SECURITY HELPERS
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function escapeJs(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+}
+
+</script>
+</body>
+
+</html>
