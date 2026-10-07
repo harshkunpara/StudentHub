@@ -113,7 +113,7 @@
     <section class="events-catalog-section" aria-label="Events Catalog">
       <div class="container">
         
-        <div class="events-grid">
+       <div class="events-grid" id="eventsGrid">
 
           <!-- Event 1: Hackathon 2026 -->
           <article class="event-card" data-category="tech">
@@ -457,6 +457,302 @@
             window.location.href = "dashboard.html";
         }, 5000);
     }
+</script>
+<script>
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+    const eventsGrid = document.getElementById("eventsGrid");
+
+    if (!eventsGrid) return;
+
+
+    try {
+
+        const response = await fetch("../php/events.php", {
+            method: "GET",
+            cache: "no-store"
+        });
+
+
+        if (!response.ok) {
+            throw new Error("Unable to load events.");
+        }
+
+
+        const data = await response.json();
+
+
+        if (!data.success || !Array.isArray(data.events)) {
+            throw new Error("Invalid event data.");
+        }
+
+
+        /*
+         * Existing events already present in HTML
+         * have IDs 2-7.
+         *
+         * We only add newly created DB events
+         * so existing design remains untouched.
+         */
+
+        const existingEventIds = new Set([
+            2, 3, 4, 5, 6, 7
+        ]);
+
+
+        const newEvents = data.events.filter(function (event) {
+
+            return !existingEventIds.has(
+                Number(event.event_id)
+            );
+
+        });
+
+
+        newEvents.reverse().forEach(function (event) {
+
+            const card = document.createElement("article");
+
+            card.className = "event-card";
+
+            card.dataset.category =
+                getEventCategory(event.category);
+
+
+            const imagePath = event.image_path
+                ? "../" + event.image_path
+                : "../image/hackathon.jpg";
+
+
+            const badgeClass =
+                getBadgeClass(event.category);
+
+
+            const buttonText =
+                getButtonText(event.category);
+
+
+            const formattedDate =
+                formatDate(event.event_date);
+
+
+            card.innerHTML = `
+
+                <div class="event-thumbnail-wrap">
+
+                    <img
+                        src="${escapeHtml(imagePath)}"
+                        alt="${escapeHtml(event.title)} event poster"
+                        class="event-thumb"
+                        loading="lazy"
+                        onerror="this.src='../image/hackathon.jpg';"
+                    >
+
+                    <span class="event-badge ${badgeClass}">
+                        ${escapeHtml(event.category)}
+                    </span>
+
+                </div>
+
+
+                <div class="event-body">
+
+                    <div class="event-date">
+
+                        <i
+                            class="fa-regular fa-calendar"
+                            aria-hidden="true">
+                        </i>
+
+                        <time datetime="${escapeHtml(event.event_date)}">
+                            ${formattedDate}
+                        </time>
+
+                    </div>
+
+
+                    <h2 class="event-heading">
+                        ${escapeHtml(event.title)}
+                    </h2>
+
+
+                    <p class="event-snippet">
+
+                        ${escapeHtml(
+                            event.description || "Campus event."
+                        )}
+
+                    </p>
+
+
+                    <div class="event-footer">
+
+                        <span class="event-venue">
+
+                            <i
+                                class="fa-solid fa-location-dot"
+                                aria-hidden="true">
+                            </i>
+
+                            ${escapeHtml(event.location)}
+
+                        </span>
+
+
+                        <a
+                            href="../php/process_event_registration.php?event_id=${Number(event.event_id)}"
+                            class="btn btn-primary btn-sm">
+
+                            ${buttonText}
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            eventsGrid.appendChild(card);
+
+        });
+
+
+    } catch (error) {
+
+        console.error("Event loading error:", error);
+
+    }
+
+});
+
+
+
+/* ==========================================
+   HELPERS
+========================================== */
+
+
+function formatDate(dateString) {
+
+    if (!dateString) return "-";
+
+
+    const date = new Date(dateString + "T00:00:00");
+
+
+    return date.toLocaleDateString("en-IN", {
+
+        day: "2-digit",
+
+        month: "long",
+
+        year: "numeric"
+
+    });
+
+}
+
+
+
+function getEventCategory(category) {
+
+    const value =
+        String(category || "").toLowerCase();
+
+
+    if (
+        value.includes("sport") ||
+        value.includes("athletic")
+    ) {
+        return "sports";
+    }
+
+
+    if (
+        value.includes("cultural") ||
+        value.includes("festival")
+    ) {
+        return "cultural";
+    }
+
+
+    if (
+        value.includes("workshop")
+    ) {
+        return "workshop";
+    }
+
+
+    return "tech";
+}
+
+
+
+function getBadgeClass(category) {
+
+    const value =
+        String(category || "").toLowerCase();
+
+
+    if (value.includes("sport")) {
+        return "badge-success";
+    }
+
+
+    if (value.includes("cultural")) {
+        return "badge-warning";
+    }
+
+
+    if (value.includes("seminar")) {
+        return "badge-accent";
+    }
+
+
+    if (value.includes("workshop")) {
+        return "badge-secondary";
+    }
+
+
+    return "badge-primary";
+}
+
+
+
+function getButtonText(category) {
+
+    const value =
+        String(category || "").toLowerCase();
+
+
+    if (value.includes("competition")) {
+        return "Participate";
+    }
+
+
+    if (value.includes("sport")) {
+        return "Join";
+    }
+
+
+    return "Register";
+}
+
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 </script>
 </body>
 

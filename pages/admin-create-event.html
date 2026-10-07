@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Admin — Create Event | StudentHub</title>
+
+    <link rel="icon" href="../image/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+
+    <style>
+
+        /* =========================================
+           ADMIN CREATE EVENT
+        ========================================= */
+
+        .admin-event-section {
+            padding: 5rem 0;
+            min-height: 75vh;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .admin-event-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .admin-event-header .section-subtitle {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
+
+        .admin-event-header .section-title {
+            margin-bottom: 0.8rem;
+        }
+
+        .admin-event-header .section-description {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+
+        .admin-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+
+            margin-bottom: 0.8rem;
+            padding: 0.4rem 0.85rem;
+
+            border-radius: 999px;
+
+            background: rgba(99, 58, 237, 0.1);
+            color: #633aed;
+
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================
+           EVENT CARD
+        ========================================= */
+
+        .event-builder-card {
+            max-width: 1050px;
+            margin: 0 auto;
+
+            padding: 2.5rem;
+
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+
+            box-shadow: var(--shadow-lg);
+        }
+
+
+        /* =========================================
+           FORM GRID
+        ========================================= */
+
+        .event-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+
+        .event-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+
+        .event-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+
+        .event-form-group label {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+
+        .event-form-group input,
+        .event-form-group select,
+        .event-form-group textarea {
+
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 0.8rem 0.9rem;
+
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+
+            background: var(--bg-surface);
+            color: var(--text-primary);
+
+            font-family: inherit;
+            font-size: 0.95rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .event-form-group input,
+        .event-form-group select {
+            min-height: 48px;
+        }
+
+
+        .event-form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+
+        .event-form-group input:focus,
+        .event-form-group select:focus,
+        .event-form-group textarea:focus {
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(66, 92, 240, 0.12);
+        }
+
+
+        .event-form-group input::placeholder,
+        .event-form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+
+        /* =========================================
+           IMAGE UPLOAD
+        ========================================= */
+
+        .event-image-upload {
+            grid-column: 1 / -1;
+
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 1.5rem;
+
+            padding: 1.4rem;
+
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius-lg);
+
+            background: var(--bg-surface);
+        }
+
+
+        .upload-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+
+        .upload-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 1rem;
+
+            border-radius: 14px;
+
+            background: rgba(66, 92, 240, 0.1);
+            color: var(--primary);
+
+            font-size: 1.3rem;
+        }
+
+
+        .upload-area h3 {
+            margin: 0 0 0.45rem;
+        }
+
+
+        .upload-area p {
+            margin: 0 0 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+
+        .upload-input {
+            width: 100%;
+            padding: 0.75rem;
+
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+
+            background: var(--bg-surface);
+            color: var(--text-primary);
+        }
+
+
+        .upload-hint {
+            margin-top: 0.65rem !important;
+            font-size: 0.78rem !important;
+        }
+
+
+        /* =========================================
+           IMAGE PREVIEW
+        ========================================= */
+
+        .event-image-preview {
+
+            min-height: 210px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(66, 92, 240, 0.08),
+                    rgba(99, 58, 237, 0.08)
+                );
+
+            border: 1px solid var(--border-subtle);
+        }
+
+
+        .event-image-preview img {
+
+            width: 100%;
+            height: 100%;
+
+            min-height: 210px;
+
+            object-fit: cover;
+
+            display: none;
+        }
+
+
+        .preview-placeholder {
+
+            text-align: center;
+
+            color: var(--text-secondary);
+
+            padding: 1rem;
+        }
+
+
+        .preview-placeholder i {
+
+            display: block;
+
+            margin-bottom: 0.6rem;
+
+            font-size: 2rem;
+
+            opacity: 0.55;
+        }
+
+
+        /* =========================================
+           ACTIONS
+        ========================================= */
+
+        .event-form-actions {
+
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+
+            border-top: 1px solid var(--border-subtle);
+        }
+
+
+        .event-form-actions .btn {
+            min-width: 160px;
+            justify-content: center;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .event-image-upload {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .admin-event-section {
+                padding: 3rem 0;
+            }
+
+            .event-builder-card {
+                padding: 1.5rem;
+            }
+
+            .event-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-form-group.full-width {
+                grid-column: auto;
+            }
+
+            .event-form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .event-form-actions .btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header" id="topHeader">
+
+        <div class="container nav-container">
+
+
+            <!-- Logo -->
+
+            <a
+                href="admin.html"
+                class="brand-logo"
+                aria-label="StudentHub Admin">
+
+                <div class="logo-icon">
+
+                    <img
+                        src="../image/StudentHub LOGO.png"
+                        alt="StudentHub Logo"
+                        class="brand-img-logo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+
+                    <i
+                        class="fa-solid fa-graduation-cap"
+                        aria-hidden="true"
+                        style="display:none;">
+                    </i>
+
+                </div>
+
+                <span class="logo-text">
+
+                    Student<span>Hub</span>
+
+                    <small class="admin-badge">
+                        Admin
+                    </small>
+
+                </span>
+
+            </a>
+
+
+
+            <!-- Navigation -->
+
+            <nav class="main-nav" id="mainNav">
+
+                <ul class="nav-list">
+
+                    <li>
+                        <a
+                            href="admin.html"
+                            class="nav-link active">
+                            Admin Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="index.html"
+                            class="nav-link">
+                            Home
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+
+            <!-- Actions -->
+
+            <div class="nav-actions">
+
+                <button
+                    id="themeToggleBtn"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Toggle Theme"
+                    title="Toggle Theme">
+
+                    <i class="fa-solid fa-moon dark-icon"></i>
+
+                    <i class="fa-solid fa-sun light-icon"></i>
+
+                </button>
+
+
+                <a
+                    href="../php/admin_logout.php"
+                    class="btn btn-outline btn-sm">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main id="mainContent">
+
+
+        <section class="admin-event-section">
+
+            <div class="container">
+
+
+                <!-- HEADER -->
+
+                <div class="admin-event-header">
+
+                    <span class="admin-label">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Admin Panel
+
+                    </span>
+
+
+                    <span class="section-subtitle">
+
+                        Event Management
+
+                    </span>
+
+
+                    <h1 class="section-title">
+
+                        Create New Event
+
+                    </h1>
+
+
+                    <p class="section-description">
+
+                        Publish workshops, hackathons, seminars and campus
+                        activities directly from the administrative panel.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- ================= EVENT BUILDER ================= -->
+
+                <div class="event-builder-card">
+
+
+                    <form
+                        id="adminEventForm"
+                        method="POST"
+                        action="../php/admin_create_event.php"
+                        enctype="multipart/form-data">
+
+
+                        <div class="event-form-grid">
+
+
+                            <!-- EVENT IMAGE -->
+
+                            <div class="event-image-upload">
+
+
+                                <div class="upload-area">
+
+
+                                    <div class="upload-icon">
+
+                                        <i class="fa-solid fa-image"></i>
+
+                                    </div>
+
+
+                                    <h3>
+                                        Event Cover Image
+                                    </h3>
+
+
+                                    <p>
+                                        Upload a poster or cover image for
+                                        this event.
+                                    </p>
+
+
+                                    <input
+                                        type="file"
+                                        id="eventImage"
+                                        name="event_image"
+                                        class="upload-input"
+                                        accept="image/jpeg,image/png,image/webp">
+
+
+                                    <p class="upload-hint">
+                                        JPG, PNG or WEBP • Recommended
+                                        1200 × 675 px
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- PREVIEW -->
+
+                                <div class="event-image-preview">
+
+                                    <div
+                                        id="previewPlaceholder"
+                                        class="preview-placeholder">
+
+                                        <i class="fa-regular fa-image"></i>
+
+                                        <span>
+                                            Image preview
+                                        </span>
+
+                                    </div>
+
+
+                                    <img
+                                        id="eventImagePreview"
+                                        src=""
+                                        alt="Event image preview">
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- EVENT TITLE -->
+
+                            <div class="event-form-group full-width">
+
+                                <label for="title">
+                                    Event Title
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    maxlength="150"
+                                    placeholder="Example: Annual Hackathon 2026"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- CATEGORY -->
+
+                            <div class="event-form-group">
+
+                                <label for="category">
+                                    Event Category
+                                </label>
+
+                                <select
+                                    id="category"
+                                    name="category"
+                                    required>
+
+                                    <option value="">
+                                        Select Category
+                                    </option>
+
+                                    <option value="Hackathon">
+                                        Hackathon
+                                    </option>
+
+                                    <option value="Workshop">
+                                        Workshop
+                                    </option>
+
+                                    <option value="Seminar">
+                                        Seminar
+                                    </option>
+
+                                    <option value="Competition">
+                                        Competition
+                                    </option>
+
+                                    <option value="Sports">
+                                        Sports
+                                    </option>
+
+                                    <option value="Cultural">
+                                        Cultural
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- DATE -->
+
+                            <div class="event-form-group">
+
+                                <label for="event_date">
+                                    Event Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="event_date"
+                                    name="event_date"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- TIME -->
+
+                            <div class="event-form-group">
+
+                                <label for="event_time">
+                                    Event Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    id="event_time"
+                                    name="event_time"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- LOCATION -->
+
+                            <div class="event-form-group">
+
+                                <label for="location">
+                                    Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    maxlength="150"
+                                    placeholder="Example: CSPIT Auditorium"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div class="event-form-group full-width">
+
+                                <label for="description">
+                                    Event Description
+                                </label>
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    maxlength="2000"
+                                    placeholder="Write a short description about the event..."
+                                    required></textarea>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="event-form-actions">
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                                <i class="fa-solid fa-calendar-plus"></i>
+
+                                Create Event
+
+                            </button>
+
+
+                            <a
+                                href="admin.html"
+                                class="btn btn-outline">
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                                Back to Admin
+
+                            </a>
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-bottom">
+
+                <p class="copyright-text">
+                    © 2026 StudentHub. All Rights Reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- Main JS -->
+
+    <script src="../js/script.js"></script>
+
+
+
+    <!-- ================= IMAGE PREVIEW ================= -->
+
+    <script>
+
+        const imageInput =
+            document.getElementById("eventImage");
+
+        const imagePreview =
+            document.getElementById("eventImagePreview");
+
+        const placeholder =
+            document.getElementById("previewPlaceholder");
+
+
+        imageInput.addEventListener("change", function () {
+
+            const file = this.files[0];
+
+            if (!file) {
+
+                imagePreview.style.display = "none";
+
+                placeholder.style.display = "block";
+
+                imagePreview.src = "";
+
+                return;
+            }
+
+
+            if (!file.type.startsWith("image/")) {
+
+                alert("Please select a valid image.");
+
+                this.value = "";
+
+                return;
+            }
+
+
+            const reader = new FileReader();
+
+
+            reader.onload = function (event) {
+
+                imagePreview.src = event.target.result;
+
+                imagePreview.style.display = "block";
+
+                placeholder.style.display = "none";
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
