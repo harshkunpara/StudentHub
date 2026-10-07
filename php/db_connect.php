@@ -3,7 +3,7 @@
 $host = "sql212.infinityfree.com";
 $dbname = "if0_43115119_studenthub";
 $username = "if0_43115119";
-$password = "HARSH12345IT25";//YOUR_INFINITYFREE_MYSQL_PASSWORD
+$password = "YOUR_INFINITYFREE_MYSQL_PASSWORD;
 
 try {
     $pdo = new PDO(
