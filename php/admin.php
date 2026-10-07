@@ -80,6 +80,8 @@ try {
             s.mobile,
             s.enrollment_number,
             s.semester,
+            s.attendance,
+            s.cgpa,
             s.gender,
             s.city,
             s.created_at,

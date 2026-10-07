@@ -272,7 +272,9 @@
             <div class="feature-icon"><i class="fa-solid fa-user-plus" aria-hidden="true"></i></div>
             <h3>Add Student</h3>
             <p>Manually provision a student profile, assign roll numbers, and grant portal credentials.</p>
-            <button class="btn btn-primary btn-sm" type="button">Open Panel</button>
+<a href="admin-add-student.html" class="btn btn-primary btn-sm">
+    Open Panel
+</a>
           </div>
 
           <div class="feature-card admin-action-card">
@@ -421,7 +423,7 @@
       body.innerHTML = students.map((student) => {
         const id = escapeHtml(student.id ?? "");
         const name = escapeHtml(student.name ?? "N/A");
-        const department = escapeHtml(student.department ?? "N/A");
+const department = escapeHtml(student.course_name ?? "N/A");
         const semester = escapeHtml(student.semester ?? "N/A");
 
         return `
@@ -432,15 +434,36 @@
             <td>${semester}</td>
             <td><span class="status-badge status-active">Active</span></td>
             <td>
-              <button class="btn btn-ghost btn-sm" type="button" disabled title="Student editing is not connected yet.">
-                View
-              </button>
+             <button class="btn btn-ghost btn-sm" type="button"
+    onclick="showStudent(${id})">
+    View
+</button>
             </td>
           </tr>
         `;
       }).join("");
     }
+function showStudent(id) {
+    const student = allStudents.find(s => Number(s.id) === Number(id));
 
+    if (!student) {
+        alert("Student details not found.");
+        return;
+    }
+
+    alert(
+        "Student Details\n\n" +
+        "ID: " + (student.id ?? "N/A") + "\n" +
+        "Name: " + (student.name ?? "N/A") + "\n" +
+        "Email: " + (student.email ?? "N/A") + "\n" +
+        "Enrollment: " + (student.enrollment_number ?? "N/A") + "\n" +
+        "Department: " + (student.department ?? "N/A") + "\n" +
+        "Semester: " + (student.semester ?? "N/A") + "\n" +
+        "Mobile: " + (student.mobile ?? "N/A") + "\n" +
+        "Attendance: " + (student.attendance ?? "N/A") + "\n" +
+        "CGPA: " + (student.cgpa ?? "N/A")
+    );
+}
     async function loadAdminData() {
       const studentsBody = document.getElementById("studentsTableBody");
 

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Admin — Add Student | StudentHub</title>
+
+    <link rel="icon" href="../image/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        /* =========================================
+           ADMIN ADD STUDENT - PAGE
+        ========================================= */
+
+        .admin-add-section {
+            padding: 5rem 0;
+            min-height: 75vh;
+        }
+
+        .admin-add-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .admin-add-header .section-subtitle {
+            display: inline-block;
+            margin-bottom: 0.7rem;
+        }
+
+        .admin-add-header .section-title {
+            margin-bottom: 0.8rem;
+        }
+
+        .admin-add-header .section-description {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           FORM CARD
+        ========================================= */
+
+        .admin-form-card {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+
+            padding: 2.5rem;
+
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+
+            box-shadow: var(--shadow-lg);
+        }
+
+
+        /* =========================================
+           FORM GRID
+        ========================================= */
+
+        .admin-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.4rem 1.5rem;
+        }
+
+
+        /* =========================================
+           FORM GROUP
+        ========================================= */
+
+        .admin-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .admin-form-group label {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+        }
+
+        .admin-form-group input,
+        .admin-form-group select {
+            width: 100%;
+            box-sizing: border-box;
+
+            min-height: 48px;
+            padding: 0.75rem 0.9rem;
+
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+
+            background: var(--bg-surface);
+            color: var(--text-primary);
+
+            font-family: inherit;
+            font-size: 0.95rem;
+
+            outline: none;
+            transition: border-color 0.2s ease,
+                        box-shadow 0.2s ease;
+        }
+
+        .admin-form-group input:focus,
+        .admin-form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(66, 92, 240, 0.12);
+        }
+
+        .admin-form-group input::placeholder {
+            color: var(--text-secondary);
+        }
+
+
+        /* =========================================
+           FORM ACTIONS
+        ========================================= */
+
+        .admin-form-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .admin-form-actions .btn {
+            min-width: 150px;
+            justify-content: center;
+        }
+
+
+        /* =========================================
+           ADMIN LABEL
+        ========================================= */
+
+        .admin-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+
+            margin-bottom: 0.8rem;
+            padding: 0.4rem 0.8rem;
+
+            border-radius: 999px;
+
+            background: rgba(99, 58, 237, 0.1);
+            color: #633aed;
+
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            .admin-add-section {
+                padding: 3rem 0;
+            }
+
+            .admin-form-card {
+                padding: 1.5rem;
+            }
+
+            .admin-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .admin-form-actions .btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="site-header" id="topHeader">
+
+        <div class="container nav-container">
+
+            <!-- Logo -->
+
+            <a href="admin.html"
+               class="brand-logo"
+               aria-label="StudentHub Admin">
+
+                <div class="logo-icon">
+
+                    <img
+                        src="../image/StudentHub LOGO.png"
+                        alt="StudentHub Logo"
+                        class="brand-img-logo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+
+                    <i
+                        class="fa-solid fa-graduation-cap"
+                        aria-hidden="true"
+                        style="display:none;">
+                    </i>
+
+                </div>
+
+                <span class="logo-text">
+                    Student<span>Hub</span>
+                    <small class="admin-badge">Admin</small>
+                </span>
+
+            </a>
+
+
+            <!-- Navigation -->
+
+            <nav class="main-nav" id="mainNav">
+
+                <ul class="nav-list">
+
+                    <li>
+                        <a href="admin.html"
+                           class="nav-link active">
+                            Admin Dashboard
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="index.html"
+                           class="nav-link">
+                            Home
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+            <!-- Actions -->
+
+            <div class="nav-actions">
+
+                <button
+                    id="themeToggleBtn"
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Toggle Theme"
+                    title="Toggle Theme">
+
+                    <i class="fa-solid fa-moon dark-icon"></i>
+                    <i class="fa-solid fa-sun light-icon"></i>
+
+                </button>
+
+
+                <a
+                    href="../php/admin_logout.php"
+                    class="btn btn-outline btn-sm">
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main id="mainContent">
+
+
+        <section class="admin-add-section">
+
+            <div class="container">
+
+
+                <!-- Page Header -->
+
+                <div class="admin-add-header">
+
+                    <span class="admin-label">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Admin Panel
+                    </span>
+
+                    <span class="section-subtitle">
+                        Student Management
+                    </span>
+
+                    <h1 class="section-title">
+                        Add New Student
+                    </h1>
+
+                    <p class="section-description">
+                        Create a new student account directly from the
+                        administrative panel.
+                    </p>
+
+                </div>
+
+
+
+                <!-- ================= FORM CARD ================= -->
+
+                <div class="admin-form-card">
+
+
+                    <form
+                        id="adminStudentForm"
+                        method="POST"
+                        action="../php/admin_add_student.php">
+
+
+                        <div class="admin-form-grid">
+
+
+                            <!-- Full Name -->
+
+                            <div class="admin-form-group">
+
+                                <label for="fullname">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="fullname"
+                                    name="fullname"
+                                    placeholder="Enter student's full name"
+                                    autocomplete="name"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- Email -->
+
+                            <div class="admin-form-group">
+
+                                <label for="email">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="student@charusat.edu.in"
+                                    autocomplete="email"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- Mobile -->
+
+                            <div class="admin-form-group">
+
+                                <label for="phone">
+                                    Mobile Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    maxlength="10"
+                                    placeholder="10 digit mobile number"
+                                    autocomplete="tel"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- Enrollment -->
+
+                            <div class="admin-form-group">
+
+                                <label for="enrollment_number">
+                                    Enrollment Number
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="enrollment_number"
+                                    name="enrollment_number"
+                                    placeholder="Example: 25IT048"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- Department -->
+
+                            <div class="admin-form-group">
+
+                                <label for="department">
+                                    Department
+                                </label>
+
+                                <select
+                                    id="department"
+                                    name="department"
+                                    required>
+
+                                    <option value="">
+                                        Select Department
+                                    </option>
+
+                                    <option value="Information Technology">
+                                        Information Technology
+                                    </option>
+
+                                    <option value="Computer Engineering">
+                                        Computer Engineering
+                                    </option>
+
+                                    <option value="Computer Science">
+                                        Computer Science
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- Semester -->
+
+                            <div class="admin-form-group">
+
+                                <label for="semester">
+                                    Semester
+                                </label>
+
+                                <select
+                                    id="semester"
+                                    name="semester"
+                                    required>
+
+                                    <option value="">
+                                        Select Semester
+                                    </option>
+
+                                    <option value="Semester 1">
+                                        Semester 1
+                                    </option>
+
+                                    <option value="Semester 2">
+                                        Semester 2
+                                    </option>
+
+                                    <option value="Semester 3">
+                                        Semester 3
+                                    </option>
+
+                                    <option value="Semester 4">
+                                        Semester 4
+                                    </option>
+
+                                    <option value="Semester 5">
+                                        Semester 5
+                                    </option>
+
+                                    <option value="Semester 6">
+                                        Semester 6
+                                    </option>
+
+                                    <option value="Semester 7">
+                                        Semester 7
+                                    </option>
+
+                                    <option value="Semester 8">
+                                        Semester 8
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- Password -->
+
+                            <div class="admin-form-group">
+
+                                <label for="password">
+                                    Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Create student password"
+                                    autocomplete="new-password"
+                                    required>
+
+                            </div>
+
+
+
+                            <!-- Confirm Password -->
+
+                            <div class="admin-form-group">
+
+                                <label for="confirm_password">
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    id="confirm_password"
+                                    name="confirm_password"
+                                    placeholder="Confirm password"
+                                    autocomplete="new-password"
+                                    required>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ================= ACTIONS ================= -->
+
+                        <div class="admin-form-actions">
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
+
+                                <i class="fa-solid fa-user-plus"></i>
+
+                                Add Student
+
+                            </button>
+
+
+                            <a
+                                href="admin.html"
+                                class="btn btn-outline">
+
+                                <i class="fa-solid fa-arrow-left"></i>
+
+                                Back to Admin
+
+                            </a>
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-bottom">
+
+                <p class="copyright-text">
+                    © 2026 StudentHub. All Rights Reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- Main JS -->
+
+    <script src="../js/script.js"></script>
+
+
+</body>
+
+</html>
