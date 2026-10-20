@@ -558,11 +558,14 @@ containing personal data, or unnecessary generated files.
 
 **Harsh Kunpara**
 
-Student developer interested in full-stack web development and practical
-campus-focused software.
+[![GitHub](https://img.shields.io/badge/GitHub-harshkunpara-181717?style=for-the-badge&logo=github)](https://github.com/harshkunpara)
+[![Repository](https://img.shields.io/badge/Repository-StudentHub-2563EB?style=for-the-badge&logo=github)](https://github.com/harshkunpara/StudentHub)
+![Role](https://img.shields.io/badge/Role-Full--Stack_Developer-16A34A?style=for-the-badge)
+![Focus](https://img.shields.io/badge/Focus-Web_Development-7C3AED?style=for-the-badge)
 
--   GitHub: [harshkunpara](https://github.com/harshkunpara)
--   Repository: [StudentHub](https://github.com/harshkunpara/StudentHub)
+Information Technology student passionate about building practical web applications and solving real-world problems through technology. Focused on full-stack development, database-driven systems, and creating meaningful digital experiences for students and campus communities.
+
+---
 
 ## License
 
