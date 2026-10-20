@@ -1,17 +1,13 @@
-# StudentHub Portal
+# StudentHub — Digital Campus Portal
 
-A centralized campus portal for student services and campus activities.
-StudentHub brings student authentication, personalized dashboard
-information, event discovery and registration, feedback, and
-administrative tools into one web application.
+![Project](https://img.shields.io/badge/Project-Full--Stack_Web_App-2563EB)
+![Frontend](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JavaScript-orange)
+![Backend](https://img.shields.io/badge/Backend-PHP-777BB4)
+![Database](https://img.shields.io/badge/Database-MySQL-4479A1)
+![Environment](https://img.shields.io/badge/Environment-XAMPP-FB7A24)
+![Deployment](https://img.shields.io/badge/Deployment-InfinityFree-16A34A)
 
-**Project type:** Full-stack web application\
-**Frontend:** HTML5, CSS3, JavaScript\
-**Backend:** PHP\
-**Database:** MySQL\
-**Local environment:** XAMPP\
-**Version control:** Git and GitHub\
-**Deployment:** InfinityFree PHP/MySQL hosting
+StudentHub is a centralized digital campus portal developed to simplify student services and campus activities through a unified web application. Built using **HTML, CSS, JavaScript, PHP, and MySQL**, it brings together student authentication, personalized dashboards, campus event discovery and registration, feedback management, and administrative operations. The platform provides separate workflows for students and administrators, with database-driven functionality and a structured approach to managing campus information.
 
 ------------------------------------------------------------------------
 
