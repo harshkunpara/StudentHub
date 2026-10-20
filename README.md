@@ -566,6 +566,8 @@ campus-focused software.
 
 ## License
 
-No license has been specified in this README. Add a `LICENSE` file and
-update this section if you intend to publish the project under an
-open-source license.
+This project is licensed under the **MIT License**.
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and sell copies of the software, subject to the terms and conditions of the license.
+
+See the [LICENSE](LICENSE) file for the complete license text.
