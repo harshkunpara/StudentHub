@@ -448,7 +448,7 @@ Event images are stored under `uploads/events/` in the current
 implementation. Ensure the directory is writable by PHP on the hosting
 environment and validate file types and sizes on the server.
 
-## Security
+## Security 
 
 -   Store passwords with PHP password-hashing functions and verify them
     using `password_verify()`.
