@@ -1,5 +1,17 @@
-# StudentHub — Digital Campus Portal
 
+<div align="center">
+
+  <img
+    src="https://capsule-render.vercel.app/api?type=venom&height=260&text=StudentHub&fontSize=76&color=0:F8FAFF,45:EEF0FF,100:DDFBFF&stroke=DCE8FF&strokeWidth=1&fontColor=111827&animation=fadeIn&desc=&descSize=12&descAlignY=72"
+    width="100%"
+    alt="StudentHub Banner"
+  />
+
+</div>
+
+
+<div align="center">
+  
 ![Project](https://img.shields.io/badge/Project-Full--Stack_Web_App-2563EB)
 ![Frontend](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JavaScript-orange)
 ![Backend](https://img.shields.io/badge/Backend-PHP-777BB4)
@@ -7,7 +19,10 @@
 ![Environment](https://img.shields.io/badge/Environment-XAMPP-FB7A24)
 ![Deployment](https://img.shields.io/badge/Deployment-InfinityFree-16A34A)
 
-StudentHub is a centralized digital campus portal developed to simplify student services and campus activities through a unified web application. Built using **HTML, CSS, JavaScript, PHP, and MySQL**, it brings together student authentication, personalized dashboards, campus event discovery and registration, feedback management, and administrative operations. The platform provides separate workflows for students and administrators, with database-driven functionality and a structured approach to managing campus information.
+</div>
+<p>
+  <strong>StudentHub</strong> is a web-based campus management platform designed to bring essential student services and campus activities into one centralized system. Developed using <strong>HTML, CSS, JavaScript, PHP, and MySQL</strong>, it features secure authentication, personalized student dashboards, event discovery and registration, feedback submission, and a dedicated admin panel. With role-based access and database-driven operations, StudentHub streamlines campus interactions and makes student information and administrative tasks easier to manage.
+</p>
 
 ------------------------------------------------------------------------
 
@@ -555,13 +570,15 @@ Never commit passwords, API keys, `.env` files, database dumps
 containing personal data, or unnecessary generated files.
 
 ## Author
-
-**Harsh Kunpara**
+<div align="center">
+  
+<p>Designed & Developed by <strong>Harsh Kunpara</strong></p>
 
 [![GitHub](https://img.shields.io/badge/GitHub-harshkunpara-181717?style=for-the-badge&logo=github)](https://github.com/harshkunpara)
 [![Repository](https://img.shields.io/badge/Repository-StudentHub-2563EB?style=for-the-badge&logo=github)](https://github.com/harshkunpara/StudentHub)
 ![Role](https://img.shields.io/badge/Role-Full--Stack_Developer-16A34A?style=for-the-badge)
 ![Focus](https://img.shields.io/badge/Focus-Web_Development-7C3AED?style=for-the-badge)
+</div>
 
 Information Technology student passionate about building practical web applications and solving real-world problems through technology. Focused on full-stack development, database-driven systems, and creating meaningful digital experiences for students and campus communities.
 
